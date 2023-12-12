@@ -1,0 +1,33 @@
+.ingredients {
+  width: 100%;
+  max-width: 600px;
+}
+
+.ingredients__tabs {
+  display: flex;
+  align-items: center;
+}
+
+.ingredients__item__top {
+  position: relative;
+}
+
+.ingredients__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px 24px;
+}
+
+.ingredients__item__price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ingredients__item__name {
+  text-align: center;
+}
+
+.ingredients__item {
+  cursor: pointer;
+}
