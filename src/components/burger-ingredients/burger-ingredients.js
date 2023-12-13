@@ -1,10 +1,11 @@
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './burger-ingredients.module.css';
-import { data } from '../../utils/data'
+import PropTypes from 'prop-types'
+import styles from './burger-ingredients.module.css'
 
-const BurgerIngredients = () => {
-  const buns = data.filter(el => el.type === 'bun')
-  const sauces = data.filter(el => el.type === 'sauce')
+const BurgerIngredients = (props) => {
+
+  const buns = props.data.filter(el => el.type === 'bun')
+  const sauces = props.data.filter(el => el.type === 'sauce')
 
   return (
     <section className={styles.ingredients}>
@@ -66,5 +67,25 @@ const BurgerIngredients = () => {
     </section>
   )
 }
+
+const dataPropTypes = PropTypes.shape({
+  id: PropTypes.string,
+  user: PropTypes.string,
+  type: PropTypes.string,
+  proteins: PropTypes.number,
+  fat: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  calories: PropTypes.number,
+  price: PropTypes.number,
+  image: PropTypes.string,
+  image_mobile: PropTypes.string,
+  image_large: PropTypes.string,
+  __v: PropTypes.number,
+})
+
+BurgerIngredients.propTypes = {
+  data: dataPropTypes,
+}
+
 
 export default BurgerIngredients
