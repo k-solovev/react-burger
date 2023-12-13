@@ -31,3 +31,32 @@
 .ingredients__item {
   cursor: pointer;
 }
+
+.ingredients__wrap {
+  overflow-y: scroll;
+  max-height: 665px;
+}
+
+.ingredients__wrap::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ingredients__wrap::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
+
+
+.ingredients__wrap::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.ingredients__wrap::-moz-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+/* Firefox */
+/* Track */
+.ingredients__wrap {
+  scrollbar-width: 8px;
+  scrollbar-color: #2F2F37 #8585AD;
+}

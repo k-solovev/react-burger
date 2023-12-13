@@ -17,7 +17,7 @@ const BurgerIngredients = (props) => {
         <Tab value="fillings">Начинки</Tab>
       </div>
 
-      <div className='ingredients__wrap'>
+      <div className={styles.ingredients__wrap}>
         <div className='mb-10'>
           <h3 className='text text_type_main-medium mb-6'>Булки</h3>
           <ul className={`${styles.ingredients__list} pt-0 pr-4 pb-0 pl-4`}>
