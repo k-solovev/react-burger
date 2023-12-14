@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor.module.css'
+import { dataIngredients } from '../../utils/prop-types';
 
-const BurgerConstructor = props => {
-  const buns = props.data.filter(el => el.type === 'bun')
-  const filling = props.data.filter(el => el.type !== 'bun')
+const BurgerConstructor = ({ data }) => {
+  const buns = data.filter(el => el.type === 'bun')
+  const filling = data.filter(el => el.type !== 'bun')
 
   return (
     <section className={`${styles.burger_constructor} mt-25`}>
@@ -21,7 +20,7 @@ const BurgerConstructor = props => {
       <ul className={`${styles.burger_constructor__list} mt-4 mb-4`}>
         {filling.map(elem => {
           return (
-            <li className={`${styles.burger_constructor__item} mb-4`}>
+            <li className={`${styles.burger_constructor__item} mb-4`} key={elem._id}>
               <span className='mr-2'>
                 <DragIcon type="primary" />
               </span>
@@ -55,20 +54,7 @@ const BurgerConstructor = props => {
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.string,
-    user: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  }),
-};
+  data: dataIngredients.isRequired
+}
 
 export default BurgerConstructor;

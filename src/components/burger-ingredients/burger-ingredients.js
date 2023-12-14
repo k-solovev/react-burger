@@ -1,29 +1,37 @@
+import React from 'react';
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from 'prop-types'
 import styles from './burger-ingredients.module.css'
+import { dataIngredients } from '../../utils/prop-types'
 
-const BurgerIngredients = props => {
+const BurgerIngredients = ({ data }) => {
+  const buns = data.filter(el => el.type === 'bun')
+  const sauces = data.filter(el => el.type === 'sauce')
 
-  const buns = props.data.filter(el => el.type === 'bun')
-  const sauces = props.data.filter(el => el.type === 'sauce')
+  const [curTab, setCurTab] = React.useState('buns')
+  const onTabClick = (value) => {
+    const element = document.getElementById(value)
+
+    setCurTab(value)
+    if (element) element.scrollIntoView({ behavior: "smooth" })
+  }
 
   return (
     <section className={`${styles.ingredients} mt-10 mr-10`}>
       <h2 className='text text_type_main-large mb-5'>Соберите бургер</h2>
 
       <div className={`${styles.ingredients__tabs} mb-10`}>
-        <Tab value="buns">Булки</Tab>
-        <Tab value="sauces">Соусы</Tab>
-        <Tab value="fillings">Начинки</Tab>
+        <Tab value="buns" active={curTab === 'buns'} onClick={() => onTabClick('buns')}>Булки</Tab>
+        <Tab value="sauces" active={curTab === 'sauces'} onClick={() => onTabClick('sauces')}>Соусы</Tab>
+        <Tab value="fillings" active={curTab === 'fillings'} onClick={() => onTabClick('fillings')}>Начинки</Tab>
       </div>
 
       <div className={styles.ingredients__wrap}>
-        <div className='mb-10'>
+        <div className='mb-10' id='buns'>
           <h3 className='text text_type_main-medium mb-6'>Булки</h3>
           <ul className={`${styles.ingredients__list} pt-0 pr-4 pb-0 pl-4`}>
             {buns.map(bun => {
               return (
-                <li className={styles.ingredients__item}>
+                <li className={styles.ingredients__item} key={bun._id}>
                   <div className={`${styles.ingredients__item__top} mb-1`}>
                     <img src={bun.image} />
                     <Counter count={1} size="default" extraClass="m-1" />
@@ -41,12 +49,12 @@ const BurgerIngredients = props => {
           </ul>
         </div>
 
-        <div className='mb-10'>
+        <div className='mb-10' id='sauces'>
           <h3 className='text text_type_main-medium mb-6'>Соусы</h3>
           <ul className={`${styles.ingredients__list} pt-0 pr-4 pb-0 pl-4`}>
             {sauces.map(sauce => {
               return (
-                <li className={styles.ingredients__item}>
+                <li className={styles.ingredients__item} key={sauce._id}>
                   <div className={`${styles.ingredients__item__top} mb-1`}>
                     <img src={sauce.image} />
                     <Counter count={1} size="default" extraClass="m-1" />
@@ -69,20 +77,7 @@ const BurgerIngredients = props => {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.string,
-    user: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  }),
+  data: dataIngredients.isRequired
 }
 
 export default BurgerIngredients
