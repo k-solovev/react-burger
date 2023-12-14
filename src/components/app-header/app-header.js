@@ -4,7 +4,7 @@ import styles from './app-header.module.css';
 
 const AppHeader = () => {
   return (
-    <header className={`${styles.header} pt-4 pr-0 pb-4 pl-0 mb-10`}>
+    <header className={`${styles.header} pt-4 pr-0 pb-4 pl-0`}>
       <nav className={styles.nav}>
         <button className={`${styles.btn} pt-4 pr-5 pb-4 pl-5`}>
           <BurgerIcon type="primary" />

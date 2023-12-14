@@ -2,13 +2,13 @@ import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger
 import PropTypes from 'prop-types'
 import styles from './burger-ingredients.module.css'
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = props => {
 
   const buns = props.data.filter(el => el.type === 'bun')
   const sauces = props.data.filter(el => el.type === 'sauce')
 
   return (
-    <section className={styles.ingredients}>
+    <section className={`${styles.ingredients} mt-10 mr-10`}>
       <h2 className='text text_type_main-large mb-5'>Соберите бургер</h2>
 
       <div className={`${styles.ingredients__tabs} mb-10`}>
@@ -68,24 +68,21 @@ const BurgerIngredients = (props) => {
   )
 }
 
-const dataPropTypes = PropTypes.shape({
-  id: PropTypes.string,
-  user: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-})
-
 BurgerIngredients.propTypes = {
-  data: dataPropTypes,
+  data: PropTypes.shape({
+    id: PropTypes.string,
+    user: PropTypes.string,
+    type: PropTypes.string,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    image_mobile: PropTypes.string,
+    image_large: PropTypes.string,
+    __v: PropTypes.number,
+  }),
 }
-
 
 export default BurgerIngredients
