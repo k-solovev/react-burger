@@ -12,7 +12,7 @@ export const ingredientPropType = PropTypes.shape({
   image: PropTypes.string.isRequired,
   image_mobile: PropTypes.string.isRequired,
   image_large: PropTypes.string.isRequired,
-  __v: PropTypes.number,
+  __v: PropTypes.number.isRequired,
 })
 
 export const dataIngredients = PropTypes.arrayOf(ingredientPropType)
