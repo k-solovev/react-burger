@@ -1,0 +1,10 @@
+.ingredient_details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ingredient_details__props {
+  display: flex;
+  align-items: center;
+}

@@ -2,8 +2,9 @@ import React from 'react';
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.module.css'
 import { dataIngredients } from '../../utils/prop-types'
+import PropTypes from 'prop-types'
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = ({ data, handleIngredientClick }) => {
   const buns = data.filter(el => el.type === 'bun')
   const sauces = data.filter(el => el.type === 'sauce')
 
@@ -31,7 +32,7 @@ const BurgerIngredients = ({ data }) => {
           <ul className={`${styles.ingredients__list} pt-0 pr-4 pb-0 pl-4`}>
             {buns.map(bun => {
               return (
-                <li className={styles.ingredients__item} key={bun._id}>
+                <li className={styles.ingredients__item} key={bun._id} onClick={() => handleIngredientClick(bun)}>
                   <div className={`${styles.ingredients__item__top} mb-1`}>
                     <img src={bun.image} />
                     <Counter count={1} size="default" extraClass="m-1" />
@@ -54,7 +55,7 @@ const BurgerIngredients = ({ data }) => {
           <ul className={`${styles.ingredients__list} pt-0 pr-4 pb-0 pl-4`}>
             {sauces.map(sauce => {
               return (
-                <li className={styles.ingredients__item} key={sauce._id}>
+                <li className={styles.ingredients__item} key={sauce._id} onClick={() => handleIngredientClick(sauce)}>
                   <div className={`${styles.ingredients__item__top} mb-1`}>
                     <img src={sauce.image} />
                     <Counter count={1} size="default" extraClass="m-1" />
@@ -77,7 +78,8 @@ const BurgerIngredients = ({ data }) => {
 }
 
 BurgerIngredients.propTypes = {
-  data: dataIngredients.isRequired
+  data: dataIngredients.isRequired,
+  handleIngredientClick: PropTypes.func.isRequired,
 }
 
 export default BurgerIngredients

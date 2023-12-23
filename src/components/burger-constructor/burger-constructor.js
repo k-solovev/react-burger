@@ -1,8 +1,9 @@
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor.module.css'
-import { dataIngredients } from '../../utils/prop-types';
+import { dataIngredients } from '../../utils/prop-types'
+import PropTypes from 'prop-types'
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = ({ data, handleOrderClick }) => {
   const buns = data.filter(el => el.type === 'bun')
   const filling = data.filter(el => el.type !== 'bun')
 
@@ -47,14 +48,15 @@ const BurgerConstructor = ({ data }) => {
         <span className='mr-10'>
           <CurrencyIcon type="primary" />
         </span>
-        <Button htmlType="button" type="primary" size="large">Оформить заказ</Button>
+        <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>Оформить заказ</Button>
       </div>
     </section>
   );
 };
 
 BurgerConstructor.propTypes = {
-  data: dataIngredients.isRequired
+  data: dataIngredients.isRequired,
+  handleOrderClick: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;
