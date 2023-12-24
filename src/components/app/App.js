@@ -5,6 +5,7 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import styles from './app.module.css'
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 const App = () => {
@@ -45,7 +46,7 @@ const App = () => {
     <>
       <AppHeader />
       {isLoading && (
-        <div style={{ textAlign: 'center', fontSize: '34px', marginTop: '200px', }}>Данные загружаются...</div>
+        <div className={`${styles.is_loading_wrap} text text_type_main-default`}>Данные загружаются...</div>
       )}
       {!isLoading && data.length && (
         <main>

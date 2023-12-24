@@ -8,23 +8,23 @@ const IngredientDetails = ({ prod }) => {
       <p className='text text_type_main-medium mb-8'>{prod.name}</p>
       <ul className={styles.ingredient_details__props}>
         <li className='pr-5'>
-          <p className='text text_type_main-default text_color_inactive'>Калории,ккал</p>
-          <p className='text text_color_inactive text_type_digits-default' style={{ textAlign: 'center' }}>{prod.calories}</p>
+          <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Калории,ккал</p>
+          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{prod.calories}</p>
         </li>
         <li className='pr-5'>
-          <p className='text text_type_main-default text_color_inactive'>Белки, г</p>
-          <p className='text text_color_inactive text_type_digits-default' style={{ textAlign: 'center' }}>{prod.proteins}</p>
+          <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Белки, г</p>
+          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{prod.proteins}</p>
         </li>
         <li className='pr-5'>
-          <p className='text text_type_main-default text_color_inactive'>Жиры, г</p>
-          <p className='text text_color_inactive text_type_digits-default' style={{ textAlign: 'center' }}>{prod.fat}</p>
+          <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Жиры, г</p>
+          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{prod.fat}</p>
         </li>
         <li className='pr-5'>
-          <p className='text text_type_main-default text_color_inactive'>Углеводы, г</p>
-          <p className='text text_color_inactive text_type_digits-default' style={{ textAlign: 'center' }}>{prod.carbohydrates}</p>
+          <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Углеводы, г</p>
+          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{prod.carbohydrates}</p>
         </li>
       </ul>
-    </div>
+    </div >
   );
 };
 
