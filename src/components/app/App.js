@@ -12,6 +12,7 @@ import { getIngredients } from '../../utils/burger-api'
 
 const App = () => {
   const [data, setData] = React.useState([])
+  const [isError, setIsError] = React.useState(null)
   const [isLoading, setIsLoading] = React.useState(true)
   const [orderDetails, setOrderDetails] = React.useState({ isOpen: false })
   const [ingredientDetails, setIngredientDetails] = React.useState({ isOpen: false, prod: null })
@@ -40,6 +41,7 @@ const App = () => {
     } catch (err) {
       console.error(`Ошибка загрузки данных ${err}`)
       setIsLoading(false)
+      setIsError(err)
     }
   }, [])
 
@@ -48,6 +50,9 @@ const App = () => {
       <AppHeader />
       {isLoading && (
         <div className={`${styles.is_loading_wrap} text text_type_main-default`}>Данные загружаются...</div>
+      )}
+      {isError && (
+        <div className={`${styles.is_loading_wrap} text text_type_main-default`}>{isError}</div>
       )}
       {!isLoading && data.length && (
         <main>
