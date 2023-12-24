@@ -4,7 +4,7 @@ import { ingredientPropType } from '../../utils/prop-types'
 const IngredientDetails = ({ prod }) => {
   return (
     <div className={styles.ingredient_details}>
-      <img src={prod.image_large} />
+      <img src={prod.image_large} alt='' />
       <p className='text text_type_main-medium mb-8'>{prod.name}</p>
       <ul className={styles.ingredient_details__props}>
         <li className='pr-5'>
@@ -30,6 +30,6 @@ const IngredientDetails = ({ prod }) => {
 
 IngredientDetails.propTypes = {
   prod: ingredientPropType.isRequired,
-};
+}
 
-export default IngredientDetails;
+export default IngredientDetails

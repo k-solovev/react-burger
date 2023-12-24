@@ -1,12 +1,14 @@
-import React from 'react';
-import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import Modal from '../modal/modal';
-import OrderDetails from '../order-details/order-details';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import React from 'react'
+
+import AppHeader from '../app-header/app-header'
+import BurgerIngredients from '../burger-ingredients/burger-ingredients'
+import BurgerConstructor from '../burger-constructor/burger-constructor'
+import Modal from '../modal/modal'
+import OrderDetails from '../order-details/order-details'
+import IngredientDetails from '../ingredient-details/ingredient-details'
+
 import styles from './app.module.css'
-const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+import { getIngredients } from '../../utils/burger-api'
 
 const App = () => {
   const [data, setData] = React.useState([])
@@ -30,14 +32,13 @@ const App = () => {
   // Получаем данные при монтировании компонента
   React.useEffect(() => {
     try {
-      fetch(API_URL)
-        .then(res => res.json())
+      getIngredients()
         .then(data => {
           setData(data.data)
           setIsLoading(false)
         })
     } catch (err) {
-      console.error(`Ошибка загрузки данных ${err}`);
+      console.error(`Ошибка загрузки данных ${err}`)
       setIsLoading(false)
     }
   }, [])
