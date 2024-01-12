@@ -1,19 +1,16 @@
 import React from 'react';
-import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { SET_ACTIVE_INGREDIENT } from '../../services/actions/active-ingredient'
+import { useSelector } from 'react-redux'
+
+import IngredientsSection from '../ingredients-section/ingredients-section';
 
 const BurgerIngredients = () => {
-  const dispatch = useDispatch()
   const data = useSelector(store => store.ingredients.ingredients)
-
-  const handleIngredientClick = (ingredient) => {
-    dispatch({ type: SET_ACTIVE_INGREDIENT, payload: ingredient, })
-  }
 
   const buns = data.filter(el => el.type === 'bun')
   const sauces = data.filter(el => el.type === 'sauce')
+  const main = data.filter(el => el.type === 'main')
 
   const [curTab, setCurTab] = React.useState('buns')
   const onTabClick = (value) => {
@@ -34,51 +31,9 @@ const BurgerIngredients = () => {
       </div>
 
       <div className={styles.ingredients__wrap}>
-        <div className='mb-10' id='buns'>
-          <h3 className='text text_type_main-medium mb-6'>Булки</h3>
-          <ul className={`${styles.ingredients__list} pt-0 pr-4 pb-0 pl-4`}>
-            {buns.map(bun => {
-              return (
-                <li className={styles.ingredients__item} key={bun._id} onClick={() => handleIngredientClick(bun)}>
-                  <div className={`${styles.ingredients__item__top} mb-1`}>
-                    <img src={bun.image} alt='' />
-                    <Counter count={1} size="default" extraClass="m-1" />
-                  </div>
-                  <div className='ingredients__item__bottom'>
-                    <div className={`${styles.ingredients__item__price} mb-1`}>
-                      <span className="text text_type_digits-default mr-2">20</span>
-                      <CurrencyIcon type="primary" />
-                    </div>
-                    <p className={`${styles.ingredients__item__name} text text_type_main-default`}>{bun.name}</p>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-
-        <div className='mb-10' id='sauces'>
-          <h3 className='text text_type_main-medium mb-6'>Соусы</h3>
-          <ul className={`${styles.ingredients__list} pt-0 pr-4 pb-0 pl-4`}>
-            {sauces.map(sauce => {
-              return (
-                <li className={styles.ingredients__item} key={sauce._id} onClick={() => handleIngredientClick(sauce)}>
-                  <div className={`${styles.ingredients__item__top} mb-1`}>
-                    <img src={sauce.image} alt='' />
-                    <Counter count={1} size="default" extraClass="m-1" />
-                  </div>
-                  <div className='ingredients__item__bottom'>
-                    <div className={`${styles.ingredients__item__price} mb-1`}>
-                      <span className="text text_type_digits-default mr-2">20</span>
-                      <CurrencyIcon type="primary" />
-                    </div>
-                    <p className={`${styles.ingredients__item__name} text text_type_main-default`}>{sauce.name}</p>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+        {buns.length && <IngredientsSection data={buns} sectionId='buns' title='Булки' />}
+        {sauces.length && <IngredientsSection data={sauces} sectionId='sauces' title='Соусы' />}
+        {main.length && <IngredientsSection data={main} sectionId='main' title='Начинки' />}
       </div>
     </section>
   )
