@@ -1,11 +1,10 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
+import { ingredientsReducer } from './ingredients'
+import { activeIngredientReducer } from './active-ingredient'
+import { orderdetailsReducer } from './order-details'
 
-const ingredientsReducer = () => {
-  return []
-}
-
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
-});
-
-export default rootReducer;
+  activeIngredient: activeIngredientReducer,
+  orderDetails: orderdetailsReducer,
+})

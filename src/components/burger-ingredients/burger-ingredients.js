@@ -1,10 +1,17 @@
 import React from 'react';
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.module.css'
-import { dataIngredients } from '../../utils/prop-types'
-import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
+import { SET_ACTIVE_INGREDIENT } from '../../services/actions/active-ingredient'
 
-const BurgerIngredients = ({ data, handleIngredientClick }) => {
+const BurgerIngredients = () => {
+  const dispatch = useDispatch()
+  const data = useSelector(store => store.ingredients.ingredients)
+
+  const handleIngredientClick = (ingredient) => {
+    dispatch({ type: SET_ACTIVE_INGREDIENT, payload: ingredient, })
+  }
+
   const buns = data.filter(el => el.type === 'bun')
   const sauces = data.filter(el => el.type === 'sauce')
 
@@ -34,7 +41,7 @@ const BurgerIngredients = ({ data, handleIngredientClick }) => {
               return (
                 <li className={styles.ingredients__item} key={bun._id} onClick={() => handleIngredientClick(bun)}>
                   <div className={`${styles.ingredients__item__top} mb-1`}>
-                    <img src={bun.image} />
+                    <img src={bun.image} alt='' />
                     <Counter count={1} size="default" extraClass="m-1" />
                   </div>
                   <div className='ingredients__item__bottom'>
@@ -57,7 +64,7 @@ const BurgerIngredients = ({ data, handleIngredientClick }) => {
               return (
                 <li className={styles.ingredients__item} key={sauce._id} onClick={() => handleIngredientClick(sauce)}>
                   <div className={`${styles.ingredients__item__top} mb-1`}>
-                    <img src={sauce.image} />
+                    <img src={sauce.image} alt='' />
                     <Counter count={1} size="default" extraClass="m-1" />
                   </div>
                   <div className='ingredients__item__bottom'>
@@ -75,11 +82,6 @@ const BurgerIngredients = ({ data, handleIngredientClick }) => {
       </div>
     </section>
   )
-}
-
-BurgerIngredients.propTypes = {
-  data: dataIngredients.isRequired,
-  handleIngredientClick: PropTypes.func.isRequired,
 }
 
 export default BurgerIngredients

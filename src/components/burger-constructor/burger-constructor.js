@@ -1,11 +1,17 @@
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor.module.css'
-import { dataIngredients } from '../../utils/prop-types'
-import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux';
+import { SHOW_ORDER_DETAILS } from '../../services/actions/order-details'
 
-const BurgerConstructor = ({ data, handleOrderClick }) => {
+const BurgerConstructor = () => {
+  const dispatch = useDispatch()
+  const data = useSelector(store => store.ingredients.ingredients)
   const buns = data.filter(el => el.type === 'bun')
   const filling = data.filter(el => el.type !== 'bun')
+
+  const handleOrderClick = () => {
+    dispatch({ type: SHOW_ORDER_DETAILS })
+  }
 
   return (
     <section className={`${styles.burger_constructor} mt-25`}>
@@ -53,10 +59,5 @@ const BurgerConstructor = ({ data, handleOrderClick }) => {
     </section>
   );
 };
-
-BurgerConstructor.propTypes = {
-  data: dataIngredients.isRequired,
-  handleOrderClick: PropTypes.func.isRequired,
-}
 
 export default BurgerConstructor;
