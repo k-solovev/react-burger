@@ -1,4 +1,7 @@
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import AppHeader from '../app-header/app-header'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients'
@@ -7,7 +10,6 @@ import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 
-import { useDispatch, useSelector } from 'react-redux'
 import { getIngredients } from '../../services/actions/ingredients'
 import styles from './app.module.css'
 
@@ -33,8 +35,10 @@ const App = () => {
       )}
       {!isLoading && data.length && (
         <main>
-          <BurgerIngredients />
-          <BurgerConstructor />
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </DndProvider>
 
           {isOrderDetailsShow && (
             <>

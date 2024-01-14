@@ -1,0 +1,17 @@
+.ingredients__item__price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ingredients__item__name {
+  text-align: center;
+}
+
+.ingredients__item {
+  cursor: pointer;
+}
+
+.ingredients__item__top {
+  position: relative;
+}
