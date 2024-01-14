@@ -16,7 +16,7 @@ import styles from './app.module.css'
 const App = () => {
   const dispatch = useDispatch()
   const activeIngredient = useSelector(store => store.activeIngredient.activeIngredient)
-  const isOrderDetailsShow = useSelector(store => store.orderDetails.isOrderDetailsShow)
+  const { orderNumber } = useSelector(store => store.orderDetails)
   const { isLoading, isError } = useSelector(store => store.ingredients)
   const data = useSelector(store => store.ingredients.ingredients)
 
@@ -40,7 +40,7 @@ const App = () => {
             <BurgerConstructor />
           </DndProvider>
 
-          {isOrderDetailsShow && (
+          {orderNumber && (
             <>
               <Modal>
                 <OrderDetails />

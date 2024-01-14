@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { SHOW_ORDER_DETAILS } from '../../services/actions/order-details'
+import { createOrder } from '../../services/actions/order-details'
 import BurgerConstructorPlug from '../burger-constructor-plug/burger-constructor-plug';
 import BurgerConstructorList from '../burger-constructor-list/burger-constructor-list';
 import { useDrop } from 'react-dnd';
@@ -35,7 +35,13 @@ const BurgerConstructor = () => {
   }, [ingredients, bun])
 
   const handleOrderClick = () => {
-    dispatch({ type: SHOW_ORDER_DETAILS })
+    if (bun !== null && ingredients.length) {
+      const ingredientsForFetch = ingredients.map(elem => elem._id)
+      ingredientsForFetch.unshift(bun._id)
+      ingredientsForFetch.push(bun._id)
+      dispatch(createOrder(ingredientsForFetch))
+    }
+
   }
 
   return (

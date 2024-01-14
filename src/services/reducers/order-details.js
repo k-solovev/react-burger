@@ -1,23 +1,36 @@
-import { SHOW_ORDER_DETAILS, HIDE_ORDER_DETAILS } from '../actions/order-details'
+import { REQUEST_ORDER, SUCCESS_ORDER, ERROR_ORDER, HIDE_ORDER_DETAILS } from '../actions/order-details'
 
 const initialState = {
-  isOrderDetailsShow: false,
-  orderDetails: {
-    id: '2549782',
-  },
+  isLoading: false,
+  isError: false,
+  orderNumber: null,
 }
 
 export const orderdetailsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SHOW_ORDER_DETAILS:
+    case REQUEST_ORDER:
       return {
         ...state,
-        isOrderDetailsShow: true,
+        isLoading: true,
+        isError: false,
+      }
+    case SUCCESS_ORDER:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        orderNumber: action.payload,
+      }
+    case REQUEST_ORDER:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
       }
     case HIDE_ORDER_DETAILS:
       return {
         ...state,
-        isOrderDetailsShow: false,
+        orderNumber: null,
       }
     default:
       return state

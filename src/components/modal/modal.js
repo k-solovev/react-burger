@@ -10,7 +10,7 @@ import { HIDE_ORDER_DETAILS } from '../../services/actions/order-details'
 
 const modalRoot = document.getElementById('react-modals')
 
-const Modal = ({ title, close, children, }) => {
+const Modal = ({ title, children, }) => {
   const dispatch = useDispatch()
 
   const modalCloseHandler = () => {
@@ -52,7 +52,6 @@ const Modal = ({ title, close, children, }) => {
 
 Modal.propTypes = {
   title: PropTypes.string,
-  close: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
 }
 
