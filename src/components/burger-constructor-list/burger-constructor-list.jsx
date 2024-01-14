@@ -1,7 +1,8 @@
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor-list.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { DELETE_INGREDIENT } from '../../services/actions/constructor'
+import BurgerConstructorItem from '../burger-constructor-item/burger-constructor-item';
 
 const BurgerConstructorList = () => {
   const dispatch = useDispatch()
@@ -12,19 +13,16 @@ const BurgerConstructorList = () => {
   }
 
   return (
-    <ul>
-      {ingredients.map(ingredient => (
-        <li className={`${styles.burger_constructor__item} mb-4`} key={ingredient.id}>
-          <span className='mr-2'>
-            <DragIcon type="primary" />
-          </span>
+    <ul className={styles.burger_constructor__list}>
+      {ingredients.map((ingredient, index) => (
+        <BurgerConstructorItem index={index} key={ingredient.id}>
           <ConstructorElement
             text={ingredient.name}
             price={ingredient.price}
             thumbnail={ingredient.image}
             handleClose={() => removeIngredientHandler(ingredient)}
           />
-        </li>
+        </BurgerConstructorItem>
       ))}
     </ul>
   );
