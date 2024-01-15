@@ -16,7 +16,7 @@ import styles from './app.module.css'
 const App = () => {
   const dispatch = useDispatch()
   const activeIngredient = useSelector(store => store.activeIngredient.activeIngredient)
-  const { orderNumber } = useSelector(store => store.orderDetails)
+  const orderNumber = useSelector(store => store.orderDetails.orderNumber)
   const { isLoading, isError } = useSelector(store => store.ingredients)
   const data = useSelector(store => store.ingredients.ingredients)
 

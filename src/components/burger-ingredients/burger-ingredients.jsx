@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.module.css'
 import { useSelector } from 'react-redux'
@@ -6,16 +6,16 @@ import { useSelector } from 'react-redux'
 import IngredientsSection from '../ingredients-section/ingredients-section';
 
 const BurgerIngredients = () => {
-  const data = useSelector(store => store.ingredients.ingredients)
+  const ingredients = useSelector(store => store.ingredients.ingredients)
   const [curTab, setCurTab] = useState('buns')
   const tabsRef = useRef(null)
   const bunsRef = useRef(null)
   const sauceRef = useRef(null)
   const mainRef = useRef(null)
 
-  const buns = data.filter(el => el.type === 'bun')
-  const sauces = data.filter(el => el.type === 'sauce')
-  const main = data.filter(el => el.type === 'main')
+  const buns = useMemo(() => ingredients.filter(el => el.type === 'bun'), [ingredients])
+  const sauces = useMemo(() => ingredients.filter(el => el.type === 'sauce'), [ingredients])
+  const main = useMemo(() => ingredients.filter(el => el.type === 'main'), [ingredients])
 
   const onTabClick = (value) => {
     const element = document.getElementById(value)
@@ -61,9 +61,9 @@ const BurgerIngredients = () => {
       </div>
 
       <div className={styles.ingredients__wrap} onScroll={onScrollHandler}>
-        {buns.length && <IngredientsSection data={buns} sectionId='buns' title='Булки' ref={bunsRef} />}
-        {sauces.length && <IngredientsSection data={sauces} sectionId='sauces' title='Соусы' ref={sauceRef} />}
-        {main.length && <IngredientsSection data={main} sectionId='main' title='Начинки' ref={mainRef} />}
+        {buns.length && <IngredientsSection ingredients={buns} sectionId='buns' title='Булки' ref={bunsRef} />}
+        {sauces.length && <IngredientsSection ingredients={sauces} sectionId='sauces' title='Соусы' ref={sauceRef} />}
+        {main.length && <IngredientsSection ingredients={main} sectionId='main' title='Начинки' ref={mainRef} />}
       </div>
     </section>
   )

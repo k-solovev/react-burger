@@ -20,14 +20,14 @@ const BurgerConstructorItem = ({ children, index }) => {
   })
 
   return (
-    <div ref={dropRef}>
-      <li className={`${styles.burger_constructor__item} mb-4`} ref={dragRef}>
+    <li ref={dragRef}>
+      <div className={`${styles.burger_constructor__item} mb-4`} ref={dropRef}>
         <span className='mr-2'>
           <DragIcon type="primary" />
         </span>
         {children}
-      </li>
-    </div>
+      </div>
+    </li>
   );
 };
 

@@ -9,7 +9,7 @@ const IngredientsSection = forwardRef((props, ref) => {
     <section className='mb-10' id={props.sectionId} ref={ref}>
       <h3 className='text text_type_main-medium mb-6'>{props.title}</h3>
       <ul className={`${styles.ingredients__list} pt-0 pr-4 pb-0 pl-4`}>
-        {props.data.map(ingredient => {
+        {props.ingredients.map(ingredient => {
           return (
             <Ingredient key={ingredient._id} ingredient={ingredient} />
           )
@@ -20,7 +20,7 @@ const IngredientsSection = forwardRef((props, ref) => {
 });
 
 IngredientsSection.propTypes = {
-  data: dataIngredients.isRequired,
+  ingredients: dataIngredients.isRequired,
   sectionId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };

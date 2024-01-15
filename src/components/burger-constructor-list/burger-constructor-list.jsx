@@ -8,8 +8,8 @@ const BurgerConstructorList = () => {
   const dispatch = useDispatch()
   const ingredients = useSelector(store => store.burgerConstructor.ingredients)
 
-  const removeIngredientHandler = (ingredient) => {
-    dispatch({ type: DELETE_INGREDIENT, payload: ingredient._id })
+  const removeIngredientHandler = (index) => {
+    dispatch({ type: DELETE_INGREDIENT, payload: index })
   }
 
   return (
@@ -20,16 +20,12 @@ const BurgerConstructorList = () => {
             text={ingredient.name}
             price={ingredient.price}
             thumbnail={ingredient.image}
-            handleClose={() => removeIngredientHandler(ingredient)}
+            handleClose={() => removeIngredientHandler(index)}
           />
         </BurgerConstructorItem>
       ))}
     </ul>
   );
-};
-
-BurgerConstructorList.propTypes = {
-
 };
 
 export default BurgerConstructorList;

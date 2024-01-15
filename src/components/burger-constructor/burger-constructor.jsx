@@ -10,7 +10,6 @@ import { ADD_BUN, ADD_INGREDIENT } from '../../services/actions/constructor'
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch()
-  const [orderPrice, setOrderPrice] = useState(0)
   const bun = useSelector(store => store.burgerConstructor.bun)
   const ingredients = useSelector(store => store.burgerConstructor.ingredients)
 
@@ -28,10 +27,8 @@ const BurgerConstructor = () => {
     return totalIngredients + totalBuns
   }
 
-  useMemo(() => {
-    if (bun !== null || ingredients.length) {
-      setOrderPrice(getTotalPrice())
-    }
+  const orderPrice = useMemo(() => {
+    return (bun !== null || ingredients.length) && getTotalPrice()
   }, [ingredients, bun])
 
   const handleOrderClick = () => {

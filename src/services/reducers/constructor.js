@@ -21,7 +21,7 @@ export const constructorReducer = (state = initialState, action) => {
     case DELETE_INGREDIENT:
       return {
         ...state,
-        ingredients: state.ingredients.filter(el => el._id !== action.payload),
+        ingredients: state.ingredients.filter((el, i) => i !== action.payload),
       }
     case SORT_INGREDIENTS:
       const ingredientsCopy = [...state.ingredients]
