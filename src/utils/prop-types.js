@@ -16,7 +16,3 @@ export const ingredientPropType = PropTypes.shape({
 })
 
 export const dataIngredients = PropTypes.arrayOf(ingredientPropType)
-
-export const modalPropTypes = PropTypes.shape({
-  title: PropTypes.string
-})
