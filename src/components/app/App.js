@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import AppHeader from '../app-header/app-header'
 import Modal from '../modal/modal'
@@ -12,14 +10,29 @@ import IngredientDetails from '../ingredient-details/ingredient-details'
 import { getIngredients } from '../../services/actions/ingredients'
 import styles from './app.module.css'
 
-import { HomePage, RegistrationPage, SignInPage, ForgotPasswordPage, ProfilePage } from '../../pages/'
+import {
+  HomePage,
+  RegistrationPage,
+  SignInPage,
+  ForgotPasswordPage,
+  ProfilePage,
+  NotFound404,
+} from '../../pages/'
 
 const App = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const activeIngredient = useSelector(store => store.activeIngredient.activeIngredient)
   const orderNumber = useSelector(store => store.orderDetails.orderNumber)
   const { isLoading, isError } = useSelector(store => store.ingredients)
   const data = useSelector(store => store.ingredients.ingredients)
+
+  const background = location.state && location.state.background
+
+  const handleModalClose = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch(getIngredients())
@@ -36,29 +49,33 @@ const App = () => {
       )}
       {!isLoading && data.length && (
         <main>
-          <DndProvider backend={HTML5Backend}>
-            <Routes>
-              {/* <Route path='/' element={<HomePage />} /> */}
-              {/* <Route path='/' element={<SignInPage />} /> */}
-              {/* <Route path='/' element={<RegistrationPage />} /> */}
-              {/* <Route path='/' element={<ForgotPasswordPage />} /> */}
-              <Route path='/' element={<ProfilePage />} />
-            </Routes>
+          <Routes location={background || location}>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/ingredients/:ingredientId' element={<IngredientDetails />}></Route>
+            {/* <Route path='/' element={<SignInPage />} /> */}
+            {/* <Route path='/' element={<RegistrationPage />} /> */}
+            {/* <Route path='/' element={<ForgotPasswordPage />} /> */}
+            {/* <Route path='/' element={<ProfilePage />} /> */}
+            {/* <Route path="*" element={<NotFound404 />} /> */}
+          </Routes>
 
-          </DndProvider>
+          {background && (
+            <Routes>
+              <Route
+                path='/ingredients/:ingredientId'
+                element={
+                  <Modal title='Детали ингредиента' onClose={handleModalClose}>
+                    <IngredientDetails />
+                  </Modal>
+                }>
+              </Route>
+            </Routes>
+          )}
 
           {orderNumber && (
             <>
-              <Modal>
+              <Modal onClose={handleModalClose}>
                 <OrderDetails />
-              </Modal>
-            </>
-          )}
-
-          {activeIngredient && (
-            <>
-              <Modal title='Детали ингредиента'>
-                <IngredientDetails prod={activeIngredient} />
               </Modal>
             </>
           )}

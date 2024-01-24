@@ -15,3 +15,8 @@
 .ingredients__item__top {
   position: relative;
 }
+
+.ingredients__link {
+  text-decoration: none;
+  color: inherit;
+}

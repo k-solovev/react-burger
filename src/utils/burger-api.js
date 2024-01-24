@@ -3,7 +3,7 @@ const API_URL = 'https://norma.nomoreparties.space/api/'
 
 export const getRequest = () => {
   return fetch(`${API_URL}ingredients`)
-    .then(res => checkResponse(res))
+    .then(res => res.ok ? res.json() : res.json().then((err) => Promise.reject(err)))
 }
 
 export const orderRequest = (ingredients) => {

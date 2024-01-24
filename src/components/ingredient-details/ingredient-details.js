@@ -1,35 +1,37 @@
 import styles from './ingredients-details.module.css'
-import { ingredientPropType } from '../../utils/prop-types'
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const IngredientDetails = ({ prod }) => {
+const IngredientDetails = () => {
+  const { ingredientId } = useParams()
+
+  const ingredients = useSelector(state => state.ingredients.ingredients)
+  const activeIngredient = ingredients.find(ingredient => ingredient._id === ingredientId)
+
   return (
     <div className={styles.ingredient_details}>
-      <img src={prod.image_large} alt='' />
-      <p className='text text_type_main-medium mb-8'>{prod.name}</p>
+      <img src={activeIngredient.image_large} alt='' />
+      <p className='text text_type_main-medium mb-8'>{activeIngredient.name}</p>
       <ul className={styles.ingredient_details__props}>
         <li className='pr-5'>
           <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Калории,ккал</p>
-          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{prod.calories}</p>
+          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{activeIngredient.calories}</p>
         </li>
         <li className='pr-5'>
           <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Белки, г</p>
-          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{prod.proteins}</p>
+          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{activeIngredient.proteins}</p>
         </li>
         <li className='pr-5'>
           <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Жиры, г</p>
-          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{prod.fat}</p>
+          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{activeIngredient.fat}</p>
         </li>
         <li className='pr-5'>
           <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Углеводы, г</p>
-          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{prod.carbohydrates}</p>
+          <p className={`${styles.ingredient_details__props_text} text text_color_inactive text_type_digits-default`}>{activeIngredient.carbohydrates}</p>
         </li>
       </ul>
     </div >
   );
 };
-
-IngredientDetails.propTypes = {
-  prod: ingredientPropType.isRequired,
-}
 
 export default IngredientDetails

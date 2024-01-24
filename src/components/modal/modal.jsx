@@ -5,22 +5,22 @@ import styles from './modal.module.css'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { REMOVE_ACTIVE_INGREDIENT } from '../../services/actions/active-ingredient'
-import { HIDE_ORDER_DETAILS } from '../../services/actions/order-details'
+// import { REMOVE_ACTIVE_INGREDIENT } from '../../services/actions/active-ingredient'
+// import { HIDE_ORDER_DETAILS } from '../../services/actions/order-details'
 
 const modalRoot = document.getElementById('react-modals')
 
-const Modal = ({ title, children, }) => {
+const Modal = ({ title, children, onClose }) => {
   const dispatch = useDispatch()
 
-  const modalCloseHandler = () => {
-    dispatch({ type: REMOVE_ACTIVE_INGREDIENT })
-    dispatch({ type: HIDE_ORDER_DETAILS })
-  }
+  // const onClose = () => {
+  //   dispatch({ type: REMOVE_ACTIVE_INGREDIENT })
+  //   dispatch({ type: HIDE_ORDER_DETAILS })
+  // }
 
   const onEscClick = (evt) => {
     if (evt.key === 'Escape') {
-      modalCloseHandler()
+      onClose()
     }
   }
 
@@ -36,11 +36,11 @@ const Modal = ({ title, children, }) => {
 
   return (ReactDOM.createPortal(
     <>
-      <ModalOverlay onClick={modalCloseHandler} />
+      <ModalOverlay onClick={onClose} />
       <section className={styles.modal}>
         <div className={styles.modal__header}>
           {title && (<h2 className='text text_type_main-large'>{title}</h2>)}
-          <button id='modal_close_btn' className={styles.close_btn} onClick={modalCloseHandler}>
+          <button id='modal_close_btn' className={styles.close_btn} onClick={onClose}>
             <CloseIcon type="primary" />
           </button>
         </div>
@@ -53,6 +53,7 @@ const Modal = ({ title, children, }) => {
 Modal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.element.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
 
 export default Modal;
