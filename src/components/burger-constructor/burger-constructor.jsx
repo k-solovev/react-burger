@@ -67,7 +67,9 @@ const BurgerConstructor = () => {
         )
           :
           (
-            <BurgerConstructorList />
+            <div className='ml-3'>
+              <BurgerConstructorList />
+            </div>
           )}
 
         <div className='ml-8 mb-4'>

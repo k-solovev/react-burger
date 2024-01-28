@@ -12,6 +12,7 @@
   background-color: transparent;
   border: 0;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btn__text_active {

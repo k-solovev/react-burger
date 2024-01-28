@@ -8,13 +8,15 @@ import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 
 import { getIngredients } from '../../services/actions/ingredients'
+import { getUser } from '../../services/actions/user'
 import styles from './app.module.css'
 
 import {
   HomePage,
   RegistrationPage,
-  SignInPage,
+  LoginPage,
   ForgotPasswordPage,
+  ResetPasswordPage,
   ProfilePage,
   NotFound404,
 } from '../../pages/'
@@ -23,7 +25,6 @@ const App = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const activeIngredient = useSelector(store => store.activeIngredient.activeIngredient)
   const orderNumber = useSelector(store => store.orderDetails.orderNumber)
   const { isLoading, isError } = useSelector(store => store.ingredients)
   const data = useSelector(store => store.ingredients.ingredients)
@@ -36,6 +37,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients())
+    dispatch(getUser())
   }, [dispatch])
 
   return (
@@ -52,11 +54,12 @@ const App = () => {
           <Routes location={background || location}>
             <Route path='/' element={<HomePage />} />
             <Route path='/ingredients/:ingredientId' element={<IngredientDetails />}></Route>
-            {/* <Route path='/' element={<SignInPage />} /> */}
-            {/* <Route path='/' element={<RegistrationPage />} /> */}
-            {/* <Route path='/' element={<ForgotPasswordPage />} /> */}
-            {/* <Route path='/' element={<ProfilePage />} /> */}
-            {/* <Route path="*" element={<NotFound404 />} /> */}
+            <Route path='/forgot-password' element={<ForgotPasswordPage />} />
+            <Route path='/reset-password' element={<ResetPasswordPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegistrationPage />} />
+            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='*' element={<NotFound404 />} />
           </Routes>
 
           {background && (
@@ -87,10 +90,11 @@ const App = () => {
 
 export default App;
 
-// 4. Реализуем функционал для модалки ингредиентов в соответствии с примером из поста про авторизацию и модалки.
 // 6. Добавляем в utils/api.js код для обновления токена из поста  про авторизацию и модалки.
-// 7. Добавляем в utils/api.js функции для всех остальных запросов которые могут понадобиться (для тех, где нужно посылать токен вместо fetch используем fetchWithRefresh)
-// 8. Реализуем функционал ProtectedRoute из примера в предыдущем посте  (компонент, асинхронные экшены, редьюсер/слайс, оборачиваем пути в App в защищенные компоненты, добавляем в App, Login и Register диспатч нужных экшенов в обработчик submit формы)
+// 7. Добавляем в utils/api.js функции для всех остальных запросов которые могут понадобиться
+// (для тех, где нужно посылать токен вместо fetch используем fetchWithRefresh)
+// 8. Реализуем функционал ProtectedRoute из примера в предыдущем посте
+// (компонент, асинхронные экшены, редьюсер/слайс, оборачиваем пути в App в защищенные компоненты, добавляем в App, Login и Register диспатч нужных экшенов в обработчик submit формы)
 // 9. Реализуем страницу Profile используя вложенные маршруты и компонент Outlet (https://www.robinwieruch.de/react-router-nested-routes )
 // 10. Делаем в главном меню активные и неактивные пункты (можно описать стили для .active и .active svg)
 // 11. Реализуем функциональность восстановления пароля с учетом флага в localStorage (см. предыдущий пост)
