@@ -1,17 +1,19 @@
 import { useState, useRef, useEffect } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styles from './login.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin } from '../../services/actions/user'
 
 export const LoginPage = () => {
+  const location = useLocation()
   const dispatch = useDispatch()
   const [formFields, setFormFields] = useState({ email: '', password: '' })
   const emailInput = useRef(null)
   const passwordInput = useRef(null)
   const isLoggedIn = useSelector(state => state.user.isLogedIn)
   const navigate = useNavigate()
+  const navigateTo = location.state?.from?.pathname ? location.state?.from?.pathname : '/'
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
@@ -19,11 +21,13 @@ export const LoginPage = () => {
       emailInput.current.value,
       passwordInput.current.value
     ))
+
+    navigate(navigateTo)
   }
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/')
+      navigate(navigateTo)
     }
   }, [isLoggedIn, navigate])
 

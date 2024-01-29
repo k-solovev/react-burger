@@ -11,6 +11,7 @@ export const orderRequest = ingredients => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + localStorage.getItem('accessToken'),
     },
     body: JSON.stringify({ ingredients }),
   }).then(res => checkResponse(res))
@@ -76,12 +77,23 @@ export const userRequest = () => {
   }).then(res => checkResponse(res))
 }
 
+export const userUpdateRequest = (name, email, password) => {
+  return fetch(`${API_URL}auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+    body: JSON.stringify({ name, email, password }),
+  }).then(res => checkResponse(res))
+}
+
 export const refreshToken = () => {
-  return fetch(`${API_URL}/auth/token`, {
+  return fetch(`${API_URL}auth/token`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      'authorization': 'Bearer ' + localStorage.getItem('accessToken'),
     },
+    body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
   }).then(res => checkResponse(res))
 }

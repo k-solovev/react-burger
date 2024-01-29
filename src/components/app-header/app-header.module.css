@@ -15,7 +15,7 @@
   text-decoration: none;
 }
 
-.btn__text_active {
+.btn__text_active span {
   color: #F2F2F3;
 }
 

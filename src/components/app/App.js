@@ -6,6 +6,7 @@ import AppHeader from '../app-header/app-header'
 import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
+import ProtectedRouteElement from '../protected-route-element/protected-route-element'
 
 import { getIngredients } from '../../services/actions/ingredients'
 import { getUser } from '../../services/actions/user'
@@ -18,6 +19,7 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
+  ProfileOrdersPage,
   NotFound404,
 } from '../../pages/'
 
@@ -58,7 +60,8 @@ const App = () => {
             <Route path='/reset-password' element={<ResetPasswordPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegistrationPage />} />
-            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} />
+            <Route path='/profile/orders' element={<ProtectedRouteElement element={<ProfileOrdersPage />} />} />
             <Route path='*' element={<NotFound404 />} />
           </Routes>
 
@@ -75,12 +78,17 @@ const App = () => {
             </Routes>
           )}
 
-          {orderNumber && (
-            <>
-              <Modal onClose={handleModalClose}>
-                <OrderDetails />
-              </Modal>
-            </>
+          {background && (
+            <Routes>
+              <Route
+                path='/order'
+                element={
+                  <Modal onClose={handleModalClose}>
+                    <OrderDetails />
+                  </Modal>
+                }>
+              </Route>
+            </Routes>
           )}
         </main>
       )}

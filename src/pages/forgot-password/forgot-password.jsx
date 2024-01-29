@@ -1,17 +1,16 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './forgot-password.module.css'
-import { useRef, useState } from 'react';
-import { forgotPasswordRequest } from '../../utils/burger-api'
+import { useState } from 'react';
+import { forgotPassword } from '../../services/actions/user'
 
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
-  const ref = useRef(null)
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
-    forgotPasswordRequest(ref.current.value)
+    forgotPassword(email)
       .then(res => res.success ? navigate('/reset-password') : console.error('Ошибка сброса пароля'))
   }
 
@@ -26,7 +25,6 @@ export const ForgotPasswordPage = () => {
         errorText={'Ошибка'}
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
-        ref={ref}
         value={email}
         onChange={(e) => { setEmail(e.target.value) }}
       />

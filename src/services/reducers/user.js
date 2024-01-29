@@ -11,6 +11,15 @@ import {
   REQUEST_USER,
   SUCCESS_USER,
   ERROR_USER,
+  REQUEST_FORGOT_PASSWORD,
+  SUCCESS_FORGOT_PASSWORD,
+  ERROR_FORGOT_PASSWORD,
+  REQUEST_RESET_PASSWORD,
+  SUCCESS_RESET_PASSWORD,
+  ERROR_RESET_PASSWORD,
+  REQUEST_USER_UPDATE,
+  SUCCESS_USER_UPDATE,
+  ERROR_USER_UPDATE,
 } from '../actions/user'
 
 const initialState = {
@@ -75,6 +84,7 @@ export const userReducer = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         isLogedIn: false,
+        user: null,
       }
     case ERROR_LOGOUT:
       return {
@@ -102,7 +112,61 @@ export const userReducer = (state = initialState, action) => {
         isError: true,
         user: null,
       }
-
+    case REQUEST_FORGOT_PASSWORD:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      }
+    case SUCCESS_FORGOT_PASSWORD:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      }
+    case ERROR_FORGOT_PASSWORD:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      }
+    case REQUEST_RESET_PASSWORD:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      }
+    case SUCCESS_RESET_PASSWORD:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      }
+    case ERROR_RESET_PASSWORD:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      }
+    case REQUEST_USER_UPDATE:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      }
+    case SUCCESS_USER_UPDATE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        user: action.payload,
+      }
+    case ERROR_USER_UPDATE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      }
     default:
       return state
   }

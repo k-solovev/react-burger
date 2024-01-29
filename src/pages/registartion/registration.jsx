@@ -1,11 +1,12 @@
 import { useState, useRef } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from './registration.module.css'
 import { userRegister } from '../../services/actions/user'
 import { useDispatch } from 'react-redux'
 
 export const RegistrationPage = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [formFields, setFormFields] = useState({ name: '', email: '', password: '' })
   const nameInput = useRef(null)

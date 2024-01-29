@@ -7,11 +7,15 @@ import BurgerConstructorPlug from '../burger-constructor-plug/burger-constructor
 import BurgerConstructorList from '../burger-constructor-list/burger-constructor-list';
 import { useDrop } from 'react-dnd';
 import { ADD_BUN, ADD_INGREDIENT } from '../../services/actions/constructor'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const BurgerConstructor = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const bun = useSelector(store => store.burgerConstructor.bun)
   const ingredients = useSelector(store => store.burgerConstructor.ingredients)
+  const user = useSelector(state => state.user.user)
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",
@@ -32,13 +36,17 @@ const BurgerConstructor = () => {
   }, [ingredients, bun])
 
   const handleOrderClick = () => {
-    if (bun !== null && ingredients.length) {
-      const ingredientsForFetch = ingredients.map(elem => elem._id)
-      ingredientsForFetch.unshift(bun._id)
-      ingredientsForFetch.push(bun._id)
-      dispatch(createOrder(ingredientsForFetch))
+    if (user) {
+      if (bun !== null && ingredients.length) {
+        const ingredientsForFetch = ingredients.map(elem => elem._id)
+        ingredientsForFetch.unshift(bun._id)
+        ingredientsForFetch.push(bun._id)
+        dispatch(createOrder(ingredientsForFetch))
+        navigate('/order', { state: { background: location } })
+      }
+    } else {
+      navigate('/login')
     }
-
   }
 
   return (

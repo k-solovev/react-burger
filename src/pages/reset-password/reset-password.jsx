@@ -1,10 +1,19 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import styles from './reset-password.module.css'
+import { resetPassword } from '../../services/actions/user'
 
 export const ResetPasswordPage = () => {
+  const [formFields, setFormFields] = useState({ password: '', token: '' })
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault()
+    resetPassword(formFields.password, formFields.token)
+  }
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={onSubmitHandler}>
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
       <Input
         type={'password'}
@@ -15,6 +24,8 @@ export const ResetPasswordPage = () => {
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         icon={'ShowIcon'}
+        value={formFields.password}
+        onChange={(e) => setFormFields({ ...formFields, password: e.target.value })}
       />
       <Input
         type={'text'}
@@ -24,8 +35,10 @@ export const ResetPasswordPage = () => {
         errorText={'Ошибка'}
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
+        value={formFields.token}
+        onChange={(e) => setFormFields({ ...formFields, token: e.target.value })}
       />
-      <Button htmlType="button" type="primary" size="large" extraClass='mb-10'>
+      <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Сохранить
       </Button>
 
