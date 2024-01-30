@@ -23,7 +23,7 @@ const BurgerConstructor = () => {
       const type = item.type === 'bun' ? ADD_BUN : ADD_INGREDIENT
       dispatch({ type, payload: item })
     },
-  });
+  })
 
   const getTotalPrice = () => {
     const totalIngredients = ingredients.reduce((acc, elem) => acc += elem.price, 0)
@@ -37,13 +37,11 @@ const BurgerConstructor = () => {
 
   const handleOrderClick = () => {
     if (user) {
-      if (bun !== null && ingredients.length) {
-        const ingredientsForFetch = ingredients.map(elem => elem._id)
-        ingredientsForFetch.unshift(bun._id)
-        ingredientsForFetch.push(bun._id)
-        dispatch(createOrder(ingredientsForFetch))
-        navigate('/order', { state: { background: location } })
-      }
+      const ingredientsForFetch = ingredients.map(elem => elem._id)
+      ingredientsForFetch.unshift(bun._id)
+      ingredientsForFetch.push(bun._id)
+      dispatch(createOrder(ingredientsForFetch))
+      navigate('/order', { state: { background: location } })
     } else {
       navigate('/login')
     }
@@ -101,7 +99,15 @@ const BurgerConstructor = () => {
         <span className='mr-10'>
           <CurrencyIcon type="primary" />
         </span>
-        <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>Оформить заказ</Button>
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={handleOrderClick}
+          disabled={bun === null || !ingredients.length}
+        >
+          Оформить заказ
+        </Button>
       </div>
     </section>
   );

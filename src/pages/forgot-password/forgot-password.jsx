@@ -1,16 +1,16 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './forgot-password.module.css'
-import { useState } from 'react';
 import { forgotPassword } from '../../services/actions/user'
+import { useForm } from '../../hooks/useForm'
 
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
+  const { formFields, handleChange } = useForm({ email: '' })
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
-    forgotPassword(email)
+    forgotPassword(formFields.email)
       .then(res => res.success ? navigate('/reset-password') : console.error('Ошибка сброса пароля'))
   }
 
@@ -20,13 +20,13 @@ export const ForgotPasswordPage = () => {
       <Input
         type={'email'}
         placeholder={'Укажите e-mail'}
-        name={'email'}
+        name='email'
         error={false}
         errorText={'Ошибка'}
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
-        value={email}
-        onChange={(e) => { setEmail(e.target.value) }}
+        value={formFields.email}
+        onChange={(e) => { handleChange(e) }}
       />
       <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Восстановить

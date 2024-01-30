@@ -1,25 +1,24 @@
-import { useState, useRef, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styles from './login.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin } from '../../services/actions/user'
+import { useForm } from '../../hooks/useForm'
 
 export const LoginPage = () => {
   const location = useLocation()
   const dispatch = useDispatch()
-  const [formFields, setFormFields] = useState({ email: '', password: '' })
-  const emailInput = useRef(null)
-  const passwordInput = useRef(null)
-  const isLoggedIn = useSelector(state => state.user.isLogedIn)
+  const { formFields, handleChange } = useForm({ email: '', password: '' })
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn)
   const navigate = useNavigate()
   const navigateTo = location.state?.from?.pathname ? location.state?.from?.pathname : '/'
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
     dispatch(userLogin(
-      emailInput.current.value,
-      passwordInput.current.value
+      formFields.email,
+      formFields.password,
     ))
 
     navigate(navigateTo)
@@ -29,7 +28,7 @@ export const LoginPage = () => {
     if (isLoggedIn) {
       navigate(navigateTo)
     }
-  }, [isLoggedIn, navigate])
+  }, [isLoggedIn, navigate, navigateTo])
 
   return (
     <form className={styles.form} onSubmit={onSubmitHandler}>
@@ -43,8 +42,7 @@ export const LoginPage = () => {
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         value={formFields.email}
-        onChange={(e) => setFormFields({ ...formFields, email: e.target.value })}
-        ref={emailInput}
+        onChange={(e) => handleChange(e)}
       />
       <Input
         type={'password'}
@@ -56,8 +54,7 @@ export const LoginPage = () => {
         extraClass={`mb-6 ${styles.form_input}`}
         icon={'ShowIcon'}
         value={formFields.password}
-        onChange={(e) => setFormFields({ ...formFields, password: e.target.value })}
-        ref={passwordInput}
+        onChange={(e) => handleChange(e)}
       />
       <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Войти

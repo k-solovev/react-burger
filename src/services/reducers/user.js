@@ -26,7 +26,7 @@ const initialState = {
   user: null,
   isLoading: false,
   isError: false,
-  isLogedIn: false,
+  isLoggedIn: false,
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -55,14 +55,14 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         isLoading: true,
         isError: false,
-        isLogedIn: false,
+        isLoggedIn: false,
       }
     case SUCCESS_LOGIN:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        isLogedIn: true,
+        isLoggedIn: true,
         user: action.payload,
       }
     case ERROR_LOGIN:
@@ -70,7 +70,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: true,
-        isLogedIn: false,
+        isLoggedIn: false,
       }
     case REQUEST_LOGOUT:
       return {
@@ -83,7 +83,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        isLogedIn: false,
+        isLoggedIn: false,
         user: null,
       }
     case ERROR_LOGOUT:
@@ -103,6 +103,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
+        isLoggedIn: true,
         user: action.payload,
       }
     case ERROR_USER:

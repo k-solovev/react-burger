@@ -1,24 +1,20 @@
-import { useState, useRef } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './registration.module.css'
 import { userRegister } from '../../services/actions/user'
 import { useDispatch } from 'react-redux'
+import { useForm } from '../../hooks/useForm'
 
 export const RegistrationPage = () => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [formFields, setFormFields] = useState({ name: '', email: '', password: '' })
-  const nameInput = useRef(null)
-  const emailInput = useRef(null)
-  const passwordInput = useRef(null)
+  const { formFields, handleChange } = useForm({ name: '', email: '', password: '' })
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
     dispatch(userRegister(
-      nameInput.current.value,
-      emailInput.current.value,
-      passwordInput.current.value
+      formFields.name,
+      formFields.email,
+      formFields.password,
     ))
   }
 
@@ -28,39 +24,36 @@ export const RegistrationPage = () => {
       <Input
         type={'text'}
         placeholder={'Имя'}
-        name={'name'}
+        name='name'
         error={false}
         errorText={'Ошибка'}
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
-        ref={nameInput}
         value={formFields.name}
-        onChange={(e) => setFormFields({ ...formFields, name: e.target.value })}
+        onChange={(e) => handleChange(e)}
       />
       <Input
         type={'email'}
         placeholder={'E-mail'}
-        name={'email'}
+        name='email'
         error={false}
         errorText={'Ошибка'}
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
-        ref={emailInput}
         value={formFields.email}
-        onChange={(e) => setFormFields({ ...formFields, email: e.target.value })}
+        onChange={(e) => handleChange(e)}
       />
       <Input
         type={'password'}
         placeholder={'Пароль'}
-        name={'password'}
+        name='password'
         error={false}
         errorText={'Ошибка'}
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         icon={'ShowIcon'}
-        ref={passwordInput}
         value={formFields.password}
-        onChange={(e) => setFormFields({ ...formFields, password: e.target.value })}
+        onChange={(e) => handleChange(e)}
       />
       <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Зарегистрироваться

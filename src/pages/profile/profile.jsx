@@ -3,12 +3,13 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import styles from './profile.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogout, userUpdate } from '../../services/actions/user'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { getUser } from '../../services/actions/user'
+import { useForm } from '../../hooks/useForm'
 
 export const ProfilePage = () => {
   const user = useSelector(state => state.user.user)
-  const [formFields, setformFields] = useState({ name: user.name, email: user.email, password: '' })
+  const { formFields, handleChange, setFormFields } = useForm({ name: user.name, email: user.email, password: '' })
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -25,7 +26,7 @@ export const ProfilePage = () => {
   }
 
   const cancelHandler = () => {
-    setformFields({ name: user.name, email: user.email, password: '' })
+    setFormFields({ name: user.name, email: user.email, password: '' })
   }
 
   const onChangeProfile = (e) => {
@@ -72,38 +73,38 @@ export const ProfilePage = () => {
           <Input
             type={'text'}
             placeholder={'Имя'}
-            name={'name'}
+            name='name'
             error={false}
             errorText={'Ошибка'}
             size={'default'}
             extraClass={'mb-6'}
             icon={'EditIcon'}
             value={formFields.name}
-            onChange={(e) => setformFields({ ...formFields, name: e.target.value })}
+            onChange={(e) => handleChange(e)}
           />
           <Input
             type={'text'}
             placeholder={'Логин'}
-            name={'email'}
+            name='email'
             error={false}
             errorText={'Ошибка'}
             size={'default'}
             extraClass={'mb-6'}
             icon={'EditIcon'}
             value={formFields.email}
-            onChange={(e) => setformFields({ ...formFields, email: e.target.value })}
+            onChange={(e) => handleChange(e)}
           />
           <Input
             type={'password'}
             placeholder={'Пароль'}
-            name={'password'}
+            name='password'
             error={false}
             errorText={'Ошибка'}
             size={'default'}
             extraClass={'mb-6'}
             icon={'EditIcon'}
             value={formFields.password}
-            onChange={(e) => setformFields({ ...formFields, password: e.target.value })}
+            onChange={(e) => handleChange(e)}
           />
 
           <div className={styles.profile__btns}>

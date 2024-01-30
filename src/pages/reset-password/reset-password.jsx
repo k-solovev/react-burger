@@ -1,11 +1,11 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
 import styles from './reset-password.module.css'
 import { resetPassword } from '../../services/actions/user'
+import { useForm } from '../../hooks/useForm'
 
 export const ResetPasswordPage = () => {
-  const [formFields, setFormFields] = useState({ password: '', token: '' })
+  const { formFields, handleChange } = useForm({ password: '', token: '' })
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
@@ -25,7 +25,7 @@ export const ResetPasswordPage = () => {
         extraClass={`mb-6 ${styles.form_input}`}
         icon={'ShowIcon'}
         value={formFields.password}
-        onChange={(e) => setFormFields({ ...formFields, password: e.target.value })}
+        onChange={(e) => handleChange(e)}
       />
       <Input
         type={'text'}
@@ -36,7 +36,7 @@ export const ResetPasswordPage = () => {
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         value={formFields.token}
-        onChange={(e) => setFormFields({ ...formFields, token: e.target.value })}
+        onChange={(e) => handleChange(e)}
       />
       <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Сохранить

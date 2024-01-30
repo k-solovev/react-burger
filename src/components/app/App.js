@@ -55,11 +55,11 @@ const App = () => {
         <main>
           <Routes location={background || location}>
             <Route path='/' element={<HomePage />} />
-            <Route path='/ingredients/:ingredientId' element={<IngredientDetails />}></Route>
-            <Route path='/forgot-password' element={<ForgotPasswordPage />} />
-            <Route path='/reset-password' element={<ResetPasswordPage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegistrationPage />} />
+            <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
+            <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPasswordPage />} anonymous={true} />} />
+            <Route path='/reset-password' element={<ProtectedRouteElement element={<ResetPasswordPage />} anonymous={true} />} />
+            <Route path='/login' element={<ProtectedRouteElement element={<LoginPage />} anonymous={true} />} />
+            <Route path='/register' element={<ProtectedRouteElement element={<RegistrationPage />} anonymous={true} />} />
             <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} />
             <Route path='/profile/orders' element={<ProtectedRouteElement element={<ProfileOrdersPage />} />} />
             <Route path='*' element={<NotFound404 />} />
@@ -75,11 +75,6 @@ const App = () => {
                   </Modal>
                 }>
               </Route>
-            </Routes>
-          )}
-
-          {background && (
-            <Routes>
               <Route
                 path='/order'
                 element={
@@ -96,13 +91,4 @@ const App = () => {
   );
 }
 
-export default App;
-
-// 6. Добавляем в utils/api.js код для обновления токена из поста  про авторизацию и модалки.
-// 7. Добавляем в utils/api.js функции для всех остальных запросов которые могут понадобиться
-// (для тех, где нужно посылать токен вместо fetch используем fetchWithRefresh)
-// 8. Реализуем функционал ProtectedRoute из примера в предыдущем посте
-// (компонент, асинхронные экшены, редьюсер/слайс, оборачиваем пути в App в защищенные компоненты, добавляем в App, Login и Register диспатч нужных экшенов в обработчик submit формы)
-// 9. Реализуем страницу Profile используя вложенные маршруты и компонент Outlet (https://www.robinwieruch.de/react-router-nested-routes )
-// 10. Делаем в главном меню активные и неактивные пункты (можно описать стили для .active и .active svg)
-// 11. Реализуем функциональность восстановления пароля с учетом флага в localStorage (см. предыдущий пост)
+export default App
