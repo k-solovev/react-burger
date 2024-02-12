@@ -14,7 +14,11 @@ ul {
   overflow: hidden;
 }
 
-main {
+.main_page__wrap {
   display: flex;
   justify-content: center;
+}
+
+main {
+  text-align: center;
 }
