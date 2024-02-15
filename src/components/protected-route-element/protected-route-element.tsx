@@ -1,9 +1,14 @@
-import PropTypes from 'prop-types'
+import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
 
-const ProtectedRouteElement = ({ element, anonymous = false }) => {
-  const isLoggedIn = useSelector((store) => store.user.isLoggedIn)
+interface IProtectedRouteElement {
+  element: React.ReactElement,
+  anonymous?: boolean,
+}
+
+const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element, anonymous = false }) => {
+  const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn)
 
   const location = useLocation()
   const from = location.state?.from || '/'
@@ -17,10 +22,6 @@ const ProtectedRouteElement = ({ element, anonymous = false }) => {
   }
 
   return element
-}
-
-ProtectedRouteElement.propTypes = {
-  element: PropTypes.element.isRequired,
 }
 
 export default ProtectedRouteElement

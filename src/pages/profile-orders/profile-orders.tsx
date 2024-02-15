@@ -2,14 +2,15 @@ import { NavLink } from 'react-router-dom'
 import styles from './profile-orders.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogout } from '../../services/actions/user'
+import { SyntheticEvent } from 'react';
 
 export const ProfileOrdersPage = () => {
-  const user = useSelector(state => state.user.user)
+  const user = useSelector((state: any) => state.user.user)
   const dispatch = useDispatch()
 
-  const logoutHandler = (e) => {
+  const logoutHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch(userLogout())
+    dispatch<any>(userLogout())
   }
 
   return (

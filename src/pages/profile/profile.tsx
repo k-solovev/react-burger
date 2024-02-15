@@ -3,25 +3,25 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import styles from './profile.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogout, userUpdate } from '../../services/actions/user'
-import { useEffect } from 'react'
+import { SyntheticEvent, useEffect } from 'react'
 import { getUser } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
 
 export const ProfilePage = () => {
-  const user = useSelector(state => state.user.user)
+  const user = useSelector((state: any) => state.user.user)
   const { formFields, handleChange, setFormFields } = useForm({ name: user.name, email: user.email, password: '' })
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!user) {
-      dispatch(getUser())
+      dispatch<any>(getUser())
     }
   }, [dispatch, user])
 
-  const logoutHandler = (e) => {
+  const logoutHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch(userLogout())
+    dispatch<any>(userLogout())
     navigate('/login')
   }
 
@@ -29,7 +29,7 @@ export const ProfilePage = () => {
     setFormFields({ name: user.name, email: user.email, password: '' })
   }
 
-  const onChangeProfile = (e) => {
+  const onChangeProfile = (e: SyntheticEvent) => {
     e.preventDefault()
     userUpdate(formFields.name, formFields.email, formFields.password)
   }

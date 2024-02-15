@@ -21,25 +21,25 @@ import {
   ProfilePage,
   ProfileOrdersPage,
   NotFound404,
-} from '../../pages/'
+} from '../../pages'
 
 const App = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const orderNumber = useSelector(store => store.orderDetails.orderNumber)
-  const { isLoading, isError } = useSelector(store => store.ingredients)
-  const data = useSelector(store => store.ingredients.ingredients)
+  const orderNumber = useSelector((store: any) => store.orderDetails.orderNumber)
+  const { isLoading, isError } = useSelector((store: any) => store.ingredients)
+  const data = useSelector((store: any) => store.ingredients.ingredients)
 
   const background = location.state && location.state.background
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     navigate(-1);
   };
 
   useEffect(() => {
-    dispatch(getIngredients())
-    dispatch(getUser())
+    dispatch(getIngredients() as any)
+    dispatch(getUser() as any)
   }, [dispatch])
 
   return (

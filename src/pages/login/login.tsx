@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { SyntheticEvent, useEffect } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styles from './login.module.css'
@@ -10,13 +10,13 @@ export const LoginPage = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const { formFields, handleChange } = useForm({ email: '', password: '' })
-  const isLoggedIn = useSelector(state => state.user.isLoggedIn)
+  const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn)
   const navigate = useNavigate()
   const navigateTo = location.state?.from?.pathname ? location.state?.from?.pathname : '/'
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch(userLogin(
+    dispatch<any>(userLogin(
       formFields.email,
       formFields.password,
     ))

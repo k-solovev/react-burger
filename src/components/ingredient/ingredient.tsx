@@ -1,18 +1,22 @@
-import { useMemo, useState } from 'react'
-import { ingredientPropType } from '../../utils/prop-types'
+import { useMemo, useState, FC } from 'react'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './ingredient.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_ACTIVE_INGREDIENT } from '../../services/actions/active-ingredient'
 import { useDrag } from 'react-dnd'
 import { Link, useLocation } from 'react-router-dom'
+import { IIngredient } from '../../utils/prop-types'
 
-const Ingredient = ({ ingredient }) => {
+interface IIngredientProps {
+  ingredient: IIngredient
+}
+
+const Ingredient: FC<IIngredientProps> = ({ ingredient }) => {
   const location = useLocation()
   const [elementCount, setElementCount] = useState(0)
   const dispatch = useDispatch()
-  const stateBun = useSelector(state => state.burgerConstructor.bun)
-  const stateIngredients = useSelector(state => state.burgerConstructor.ingredients)
+  const stateBun = useSelector((state: any) => state.burgerConstructor.bun)
+  const stateIngredients = useSelector((state: any) => state.burgerConstructor.ingredients)
 
   const calculateCount = () => {
     const allStateIngredients = [...stateIngredients, ...(stateBun ? [stateBun] : []), ...(stateBun ? [stateBun] : [])]
@@ -29,7 +33,7 @@ const Ingredient = ({ ingredient }) => {
     item: ingredient,
   })
 
-  const handleActiveIngredientClick = (ingredient) => {
+  const handleActiveIngredientClick = (ingredient: IIngredient) => {
     dispatch({ type: SET_ACTIVE_INGREDIENT, payload: ingredient, })
   }
 
@@ -53,10 +57,6 @@ const Ingredient = ({ ingredient }) => {
       </Link>
     </li>
   );
-};
-
-Ingredient.propTypes = {
-  ingredient: ingredientPropType,
 };
 
 export default Ingredient;

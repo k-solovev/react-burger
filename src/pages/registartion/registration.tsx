@@ -4,14 +4,15 @@ import styles from './registration.module.css'
 import { userRegister } from '../../services/actions/user'
 import { useDispatch } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
+import { SyntheticEvent } from 'react'
 
 export const RegistrationPage = () => {
   const dispatch = useDispatch()
   const { formFields, handleChange } = useForm({ name: '', email: '', password: '' })
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch(userRegister(
+    dispatch<any>(userRegister(
       formFields.name,
       formFields.email,
       formFields.password,

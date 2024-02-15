@@ -2,29 +2,32 @@ import { useState, useRef, useMemo } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.module.css'
 import { useSelector } from 'react-redux'
+import { IIngredient } from '../../utils/prop-types';
 
 import IngredientsSection from '../ingredients-section/ingredients-section';
 
 const BurgerIngredients = () => {
-  const ingredients = useSelector(store => store.ingredients.ingredients)
+  const ingredients = useSelector((store: any) => store.ingredients.ingredients)
   const [curTab, setCurTab] = useState('buns')
-  const tabsRef = useRef(null)
-  const bunsRef = useRef(null)
-  const sauceRef = useRef(null)
-  const mainRef = useRef(null)
+  const tabsRef = useRef<HTMLDivElement>(null)
+  const bunsRef = useRef<HTMLDivElement>(null)
+  const sauceRef = useRef<HTMLDivElement>(null)
+  const mainRef = useRef<HTMLDivElement>(null)
 
-  const buns = useMemo(() => ingredients.filter(el => el.type === 'bun'), [ingredients])
-  const sauces = useMemo(() => ingredients.filter(el => el.type === 'sauce'), [ingredients])
-  const main = useMemo(() => ingredients.filter(el => el.type === 'main'), [ingredients])
+  const buns = useMemo(() => ingredients.filter((el: IIngredient) => el.type === 'bun'), [ingredients])
+  const sauces = useMemo(() => ingredients.filter((el: IIngredient) => el.type === 'sauce'), [ingredients])
+  const main = useMemo(() => ingredients.filter((el: IIngredient) => el.type === 'main'), [ingredients])
 
-  const onTabClick = (value) => {
+  const onTabClick = (value: 'buns' | 'sauces' | 'main') => {
     const element = document.getElementById(value)
 
     setCurTab(value)
     if (element) element.scrollIntoView({ behavior: "smooth" })
   }
 
-  const onScrollHandler = () => {
+  const onScrollHandler = (): void => {
+    if (!tabsRef.current || !bunsRef.current || !sauceRef.current || !mainRef.current) return
+
     const tabsRect = tabsRef.current.getBoundingClientRect()
     const bunsRect = bunsRef.current.getBoundingClientRect()
     const sauceRect = sauceRef.current.getBoundingClientRect()

@@ -1,4 +1,5 @@
 import { checkResponse } from './functions'
+import { IIngredient } from './prop-types'
 const API_URL = 'https://norma.nomoreparties.space/api/'
 
 export const getRequest = () => {
@@ -6,7 +7,7 @@ export const getRequest = () => {
     .then(res => checkResponse(res))
 }
 
-export const orderRequest = ingredients => {
+export const orderRequest = (ingredients: IIngredient[]) => {
   return fetch(`${API_URL}orders`, {
     method: 'POST',
     headers: {
@@ -17,7 +18,7 @@ export const orderRequest = ingredients => {
   }).then(res => checkResponse(res))
 }
 
-export const forgotPasswordRequest = email => {
+export const forgotPasswordRequest = (email: string) => {
   return fetch(`${API_URL}password-reset`, {
     method: 'POST',
     headers: {
@@ -27,7 +28,7 @@ export const forgotPasswordRequest = email => {
   }).then(res => checkResponse(res))
 }
 
-export const resetPasswordRequest = (password, token) => {
+export const resetPasswordRequest = (password: string, token: string) => {
   return fetch(`${API_URL}password-reset/reset`, {
     method: 'POST',
     headers: {
@@ -37,7 +38,7 @@ export const resetPasswordRequest = (password, token) => {
   }).then(res => checkResponse(res))
 }
 
-export const registrationRequest = (name, email, password,) => {
+export const registrationRequest = (name: string, email: string, password: string,) => {
   return fetch(`${API_URL}auth/register`, {
     method: 'POST',
     headers: {
@@ -47,7 +48,7 @@ export const registrationRequest = (name, email, password,) => {
   }).then(res => checkResponse(res))
 }
 
-export const loginRequest = (email, password,) => {
+export const loginRequest = (email: string, password: string,) => {
   return fetch(`${API_URL}auth/login`, {
     method: 'POST',
     headers: {
@@ -77,7 +78,7 @@ export const userRequest = () => {
   }).then(res => checkResponse(res))
 }
 
-export const userUpdateRequest = (name, email, password) => {
+export const userUpdateRequest = (name: string, email: string, password: string) => {
   return fetch(`${API_URL}auth/user`, {
     method: 'PATCH',
     headers: {
