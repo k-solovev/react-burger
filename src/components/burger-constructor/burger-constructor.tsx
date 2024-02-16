@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor.module.css'
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,25 +8,26 @@ import BurgerConstructorList from '../burger-constructor-list/burger-constructor
 import { useDrop } from 'react-dnd';
 import { ADD_BUN, ADD_INGREDIENT } from '../../services/actions/constructor'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { IIngredient } from '../../utils/prop-types'
 
 const BurgerConstructor = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const bun = useSelector(store => store.burgerConstructor.bun)
-  const ingredients = useSelector(store => store.burgerConstructor.ingredients)
-  const user = useSelector(state => state.user.user)
+  const bun = useSelector((store: any) => store.burgerConstructor.bun)
+  const ingredients = useSelector((store: any) => store.burgerConstructor.ingredients)
+  const user = useSelector((store: any) => store.user.user)
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: IIngredient) {
       const type = item.type === 'bun' ? ADD_BUN : ADD_INGREDIENT
       dispatch({ type, payload: item })
     },
   })
 
   const getTotalPrice = () => {
-    const totalIngredients = ingredients.reduce((acc, elem) => acc += elem.price, 0)
+    const totalIngredients = ingredients.reduce((acc: number, elem: IIngredient): number => acc += elem.price, 0)
     const totalBuns = bun ? bun.price * 2 : 0
     return totalIngredients + totalBuns
   }
@@ -37,10 +38,10 @@ const BurgerConstructor = () => {
 
   const handleOrderClick = () => {
     if (user) {
-      const ingredientsForFetch = ingredients.map(elem => elem._id)
+      const ingredientsForFetch = ingredients.map((elem: IIngredient) => elem._id)
       ingredientsForFetch.unshift(bun._id)
       ingredientsForFetch.push(bun._id)
-      dispatch(createOrder(ingredientsForFetch))
+      dispatch(createOrder(ingredientsForFetch) as any)
       navigate('/order', { state: { background: location } })
     } else {
       navigate('/login')

@@ -1,12 +1,12 @@
 import styles from './ingredients-details.module.css'
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { IIngredient } from '../../utils/prop-types'
 
 const IngredientDetails = () => {
   const { ingredientId } = useParams()
-
-  const ingredients = useSelector(state => state.ingredients.ingredients)
-  const activeIngredient = ingredients.find(ingredient => ingredient._id === ingredientId)
+  const ingredients = useSelector((state: any) => state.ingredients.ingredients)
+  const activeIngredient = ingredients.find((ingredient: IIngredient) => ingredient._id === ingredientId)
 
   return (
     <div className={styles.ingredient_details}>

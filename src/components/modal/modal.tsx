@@ -1,24 +1,19 @@
-import { useEffect } from 'react'
+import { useEffect, FC } from 'react'
 import ReactDOM from 'react-dom'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './modal.module.css'
 import ModalOverlay from '../modal-overlay/modal-overlay'
-import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
-// import { REMOVE_ACTIVE_INGREDIENT } from '../../services/actions/active-ingredient'
-// import { HIDE_ORDER_DETAILS } from '../../services/actions/order-details'
 
-const modalRoot = document.getElementById('react-modals')
+const modalRoot = document.getElementById('react-modals') as HTMLElement
 
-const Modal = ({ title, children, onClose }) => {
-  const dispatch = useDispatch()
+interface IModal {
+  title?: string,
+  children: React.ReactElement,
+  onClose: () => void,
+}
 
-  // const onClose = () => {
-  //   dispatch({ type: REMOVE_ACTIVE_INGREDIENT })
-  //   dispatch({ type: HIDE_ORDER_DETAILS })
-  // }
-
-  const onEscClick = (evt) => {
+const Modal: FC<IModal> = ({ title, children, onClose }) => {
+  const onEscClick = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       onClose()
     }
@@ -49,11 +44,5 @@ const Modal = ({ title, children, onClose }) => {
     </>, modalRoot)
   );
 };
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.element.isRequired,
-  onClose: PropTypes.func.isRequired,
-}
 
 export default Modal;

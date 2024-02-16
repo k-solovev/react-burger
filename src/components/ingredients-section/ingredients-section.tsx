@@ -1,10 +1,15 @@
-import { forwardRef } from 'react'
-import PropTypes from 'prop-types'
-import { dataIngredients } from '../../utils/prop-types'
+import { forwardRef, HTMLAttributes } from 'react'
 import Ingredient from '../ingredient/ingredient'
 import styles from './ingredients-section.module.css'
+import { IIngredient } from '../../utils/prop-types'
 
-const IngredientsSection = forwardRef((props, ref) => {
+interface IIngredientsSectionProps extends HTMLAttributes<HTMLDivElement> {
+  ingredients: IIngredient[];
+  sectionId: 'buns' | 'sauces' | 'main';
+  title: 'Булки' | 'Соусы' | 'Начинки';
+}
+
+const IngredientsSection = forwardRef<HTMLDivElement, IIngredientsSectionProps>((props, ref) => {
   return (
     <section className='mb-10' id={props.sectionId} ref={ref}>
       <h3 className='text text_type_main-medium mb-6'>{props.title}</h3>
@@ -18,11 +23,5 @@ const IngredientsSection = forwardRef((props, ref) => {
     </section>
   );
 });
-
-IngredientsSection.propTypes = {
-  ingredients: dataIngredients.isRequired,
-  sectionId: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-};
 
 export default IngredientsSection;

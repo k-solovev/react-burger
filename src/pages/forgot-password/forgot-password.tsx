@@ -1,17 +1,20 @@
+import { SyntheticEvent } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './forgot-password.module.css'
 import { forgotPassword } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
+import { useDispatch } from 'react-redux'
 
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { formFields, handleChange } = useForm({ email: '' })
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    forgotPassword(formFields.email)
-      .then(res => res.success ? navigate('/reset-password') : console.error('Ошибка сброса пароля'))
+    dispatch<any>(forgotPassword(formFields.email))
+    navigate('/reset-password')
   }
 
   return (

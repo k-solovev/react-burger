@@ -1,18 +1,27 @@
-import PropTypes from 'prop-types';
+import { FC, ReactNode } from 'react'
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor-item.module.css'
 import { useDrag, useDrop } from 'react-dnd';
 import { SORT_INGREDIENTS } from '../../services/actions/constructor'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 
-const BurgerConstructorItem = ({ children, index }) => {
+interface IBurgerConstructorItem {
+  children: ReactNode,
+  index: number,
+}
+
+type TDragObject = {
+  index: number
+}
+
+const BurgerConstructorItem: FC<IBurgerConstructorItem> = ({ children, index }) => {
   const dispatch = useDispatch()
   const [, dragRef] = useDrag({
     type: 'ingredientSort',
     item: () => ({ index }),
   })
 
-  const [, dropRef] = useDrop({
+  const [, dropRef] = useDrop<TDragObject>({
     accept: 'ingredientSort',
     drop(item) {
       dispatch({ type: SORT_INGREDIENTS, from: item.index, to: index })
@@ -29,11 +38,6 @@ const BurgerConstructorItem = ({ children, index }) => {
       </div>
     </li>
   );
-};
-
-BurgerConstructorItem.propTypes = {
-  children: PropTypes.element.isRequired,
-  index: PropTypes.number.isRequired,
 };
 
 export default BurgerConstructorItem;

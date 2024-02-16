@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom'
 import styles from './reset-password.module.css'
 import { resetPassword } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
+import { SyntheticEvent } from 'react'
 
 export const ResetPasswordPage = () => {
   const { formFields, handleChange } = useForm({ password: '', token: '' })
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
     resetPassword(formFields.password, formFields.token)
   }
