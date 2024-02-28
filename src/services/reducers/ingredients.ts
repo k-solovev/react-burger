@@ -1,12 +1,19 @@
-import { REQUEST_INGREDIENTS, SUCCESS_INGREDIENTS, ERROR_INGREDIENTS } from '../actions/ingredients';
+import { IIngredient } from '../../utils/prop-types'
+import { REQUEST_INGREDIENTS, SUCCESS_INGREDIENTS, ERROR_INGREDIENTS, TIngredientsActions } from '../actions/ingredients'
 
-const initialState = {
+interface IInitialState {
+  isLoading: boolean,
+  isError: boolean,
+  ingredients: IIngredient[] | []
+}
+
+const initialState: IInitialState = {
   isLoading: false,
   isError: false,
   ingredients: [],
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state: IInitialState = initialState, action: TIngredientsActions) => {
   switch (action.type) {
     case REQUEST_INGREDIENTS:
       return {

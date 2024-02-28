@@ -2,12 +2,43 @@ import { checkResponse } from './functions'
 import { IIngredient } from './prop-types'
 const API_URL = 'https://norma.nomoreparties.space/api/'
 
-export const getRequest = () => {
-  return fetch(`${API_URL}ingredients`)
-    .then(res => checkResponse(res))
+type TServerResponce<T> = {
+  success: boolean
+} & T
+
+type TIngredientsResponce = TServerResponce<{
+  data: Array<IIngredient>
+}>
+
+type TOrderResponce = TServerResponce<{
+  name: string;
+  order: {
+    number: number
+  }
+}>
+
+type TUserResponce = TServerResponce<{
+  user: {
+    email: string
+    name: string
+  },
+}>
+
+type TRegAuthResponce = TUserResponce & {
+  accessToken: string
+  refreshToken: string
 }
 
-export const orderRequest = (ingredients: IIngredient[]) => {
+type TPassLogoutResponce = TServerResponce<{
+  message: string
+}>
+
+export const getRequest = () => {
+  return fetch(`${API_URL}ingredients`)
+    .then(res => checkResponse<TIngredientsResponce>(res))
+}
+
+export const orderRequest = (ingredients: string[]) => {
   return fetch(`${API_URL}orders`, {
     method: 'POST',
     headers: {
@@ -15,7 +46,7 @@ export const orderRequest = (ingredients: IIngredient[]) => {
       'authorization': 'Bearer ' + localStorage.getItem('accessToken'),
     },
     body: JSON.stringify({ ingredients }),
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TOrderResponce>(res))
 }
 
 export const forgotPasswordRequest = (email: string) => {
@@ -25,7 +56,7 @@ export const forgotPasswordRequest = (email: string) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email }),
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TPassLogoutResponce>(res))
 }
 
 export const resetPasswordRequest = (password: string, token: string) => {
@@ -35,7 +66,7 @@ export const resetPasswordRequest = (password: string, token: string) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password, token }),
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TPassLogoutResponce>(res))
 }
 
 export const registrationRequest = (name: string, email: string, password: string,) => {
@@ -45,7 +76,7 @@ export const registrationRequest = (name: string, email: string, password: strin
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name, email, password }),
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TRegAuthResponce>(res))
 }
 
 export const loginRequest = (email: string, password: string,) => {
@@ -55,7 +86,7 @@ export const loginRequest = (email: string, password: string,) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TRegAuthResponce>(res))
 }
 
 export const logoutRequest = () => {
@@ -65,7 +96,7 @@ export const logoutRequest = () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TPassLogoutResponce>(res))
 }
 
 export const userRequest = () => {
@@ -75,7 +106,7 @@ export const userRequest = () => {
       'Content-Type': 'application/json',
       'authorization': 'Bearer ' + localStorage.getItem('accessToken'),
     },
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TUserResponce>(res))
 }
 
 export const userUpdateRequest = (name: string, email: string, password: string) => {
@@ -86,7 +117,7 @@ export const userUpdateRequest = (name: string, email: string, password: string)
       'authorization': 'Bearer ' + localStorage.getItem('accessToken'),
     },
     body: JSON.stringify({ name, email, password }),
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TRegAuthResponce>(res))
 }
 
 export const refreshToken = () => {
@@ -96,5 +127,5 @@ export const refreshToken = () => {
       'Content-Type': 'application/json;charset=utf-8',
     },
     body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
-  }).then(res => checkResponse(res))
+  }).then(res => checkResponse<TRegAuthResponce>(res))
 }

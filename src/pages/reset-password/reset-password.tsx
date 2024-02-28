@@ -4,13 +4,15 @@ import styles from './reset-password.module.css'
 import { resetPassword } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
 import { SyntheticEvent } from 'react'
+import { useDispatch } from 'react-redux'
 
 export const ResetPasswordPage = () => {
+  const dispatch = useDispatch()
   const { formFields, handleChange } = useForm({ password: '', token: '' })
 
   const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    resetPassword(formFields.password, formFields.token)
+    dispatch<any>(resetPassword(formFields.password, formFields.token))
   }
 
   return (
@@ -31,7 +33,7 @@ export const ResetPasswordPage = () => {
       <Input
         type={'text'}
         placeholder={'Введите код из письма'}
-        name={'text'}
+        name={'token'}
         error={false}
         errorText={'Ошибка'}
         size={'default'}

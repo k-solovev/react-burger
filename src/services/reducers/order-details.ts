@@ -1,12 +1,18 @@
-import { REQUEST_ORDER, SUCCESS_ORDER, ERROR_ORDER, HIDE_ORDER_DETAILS } from '../actions/order-details'
+import { REQUEST_ORDER, SUCCESS_ORDER, ERROR_ORDER, TOrderDetailsActions } from '../actions/order-details'
 
-const initialState = {
+interface IInitialState {
+  isLoading: boolean,
+  isError: boolean,
+  orderNumber: null | number
+}
+
+const initialState: IInitialState = {
   isLoading: false,
   isError: false,
   orderNumber: null,
 }
 
-export const orderdetailsReducer = (state = initialState, action) => {
+export const orderdetailsReducer = (state: IInitialState = initialState, action: TOrderDetailsActions) => {
   switch (action.type) {
     case REQUEST_ORDER:
       return {
@@ -27,11 +33,11 @@ export const orderdetailsReducer = (state = initialState, action) => {
         isLoading: false,
         isError: true,
       }
-    case HIDE_ORDER_DETAILS:
-      return {
-        ...state,
-        orderNumber: null,
-      }
+    // case HIDE_ORDER_DETAILS:
+    //   return {
+    //     ...state,
+    //     orderNumber: null,
+    //   }
     default:
       return state
   }
