@@ -1,0 +1,13 @@
+.feedstat {
+  padding-top: 50px;
+}
+
+.feedstat__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 36px;
+}
+
+.feedstat__orders_list {
+  color: #00CCCC;
+}

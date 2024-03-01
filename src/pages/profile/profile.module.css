@@ -29,12 +29,6 @@
   cursor: pointer;
 }
 
-.profile__btns {
-  display: flex;
-  align-items: center;
-  justify-content: end;
-}
-
 .profile__footnote {
   opacity: .4;
   text-align: left;

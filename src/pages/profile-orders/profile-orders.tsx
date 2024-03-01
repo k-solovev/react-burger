@@ -3,6 +3,7 @@ import styles from './profile-orders.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogout } from '../../services/actions/user'
 import { SyntheticEvent } from 'react';
+import FeedList from '../../components/feedlist/feedlist';
 
 export const ProfileOrdersPage = () => {
   const user = useSelector((state: any) => state.user.user)
@@ -15,9 +16,10 @@ export const ProfileOrdersPage = () => {
 
   return (
     <div className={styles.profile}>
-      <div className={styles.profile__menu}>
+      <div className={`${styles.profile__menu} mr-15`}>
         <NavLink
           to='/profile'
+          end
           className={({ isActive }) => isActive ?
             `text text_type_main-medium text_color_inactive mb-5 ${styles.profile__link} ${styles.profile__link_active}`
             :
@@ -28,6 +30,7 @@ export const ProfileOrdersPage = () => {
         </NavLink>
         <NavLink
           to='/profile/orders'
+          end
           className={({ isActive }) => isActive ?
             `text text_type_main-medium text_color_inactive mb-5 ${styles.profile__link} ${styles.profile__link_active}`
             :
@@ -47,8 +50,8 @@ export const ProfileOrdersPage = () => {
         <p className={`text text_type_main-default text_color_inactive ${styles.profile__footnote}`}>В этом разделе вы можете<br />изменить свои персональные данные</p>
       </div>
 
-      <div className="profile__main">
-        {/* Лента заказов */}
+      <div className={styles.profile__main}>
+        <FeedList />
       </div>
     </div>
   );

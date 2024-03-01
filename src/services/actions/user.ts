@@ -332,6 +332,7 @@ export const getUser = (): AppThunk => {
           refreshToken().then(res => {
             localStorage.setItem('refreshToken', res.refreshToken)
             localStorage.setItem('accessToken', res.accessToken.split('Bearer ')[1])
+            // @ts-ignore
             dispatch(getUser())
           })
         } else {

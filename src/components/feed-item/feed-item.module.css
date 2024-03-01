@@ -1,0 +1,22 @@
+.feed_item {
+  display: block;
+  border-radius: 40px;
+  background-color: #1C1C21;
+  color: #F2F2F3;
+  text-decoration: none;
+}
+
+.feed_item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feed_item__order_price {
+  display: flex;
+  align-items: center;
+}
+
+.feed_item__title {
+  text-align: left;
+}
