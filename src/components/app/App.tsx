@@ -64,7 +64,7 @@ const App = () => {
             <Route path='/register' element={<ProtectedRouteElement element={<RegistrationPage />} anonymous={true} />} />
             <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} />
             <Route path='/profile/orders' element={<ProtectedRouteElement element={<ProfileOrdersPage />} />} />
-            <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<OrderDetailPage />} />} />
+            <Route path='/profile/orders/:orderId' element={<ProtectedRouteElement element={<OrderDetailPage />} />} />
             <Route path='/feed/' element={<FeedPage />} />
             <Route path='/feed/:orderId' element={<OrderDetailPage />} />
             <Route path='*' element={<NotFound404 />} />
@@ -77,14 +77,6 @@ const App = () => {
                 element={
                   <Modal title='Детали ингредиента' onClose={handleModalClose}>
                     <IngredientDetails />
-                  </Modal>
-                }>
-              </Route>
-              <Route
-                path='/order'
-                element={
-                  <Modal onClose={handleModalClose}>
-                    <OrderDetails />
                   </Modal>
                 }>
               </Route>

@@ -5,6 +5,7 @@ import { TConstructorActions } from '../services/actions/constructor'
 import { TIngredientsActions } from '../services/actions/ingredients'
 import { TOrderDetailsActions } from '../services/actions/order-details'
 import { TUserActions } from '../services/actions/user'
+import { TFeedActions } from '../services/actions/feed'
 
 export interface IIngredient {
   _id: string,
@@ -21,12 +22,29 @@ export interface IIngredient {
   __v: number,
 }
 
+export type TOrder = {
+  ingredients: Array<string>,
+  _id: string,
+  name: string,
+  status: string,
+  number: number,
+  createdAt: string,
+  updatedAt: string,
+}
+
+export type TFeed = {
+  orders: Array<TOrder>,
+  totalOrders: number,
+  totalToday: number
+}
+
 export type TAppActions =
   | TActiveIngredientActions
   | TConstructorActions
   | TIngredientsActions
   | TOrderDetailsActions
   | TUserActions
+  | TFeedActions
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

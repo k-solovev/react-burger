@@ -51,7 +51,7 @@ export const ProfileOrdersPage = () => {
       </div>
 
       <div className={styles.profile__main}>
-        <FeedList />
+        {/* <FeedList /> */}
       </div>
     </div>
   );
