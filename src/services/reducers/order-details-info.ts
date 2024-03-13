@@ -1,43 +1,44 @@
-import { REQUEST_ORDER, SUCCESS_ORDER, ERROR_ORDER, TOrderDetailsActions } from '../actions/order-details'
+import { TOrder } from '../../utils/prop-types'
+import {
+  REQUEST_ORDER_INFO,
+  SUCCESS_ORDER_INFO,
+  ERROR_ORDER_INFO,
+  TOrderDetailsInfoActions
+} from '../actions/order-details-info'
 
 interface IInitialState {
   isLoading: boolean,
   isError: boolean,
-  orderNumber: null | number
+  detailedOrder: null | TOrder
 }
 
 const initialState: IInitialState = {
   isLoading: false,
   isError: false,
-  orderNumber: null,
+  detailedOrder: null,
 }
 
-export const orderdetailsReducer = (state: IInitialState = initialState, action: TOrderDetailsActions) => {
+export const orderDetailsInfoReducer = (state: IInitialState = initialState, action: TOrderDetailsInfoActions) => {
   switch (action.type) {
-    case REQUEST_ORDER:
+    case REQUEST_ORDER_INFO:
       return {
         ...state,
         isLoading: true,
         isError: false,
       }
-    case SUCCESS_ORDER:
+    case SUCCESS_ORDER_INFO:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        orderNumber: action.payload,
+        detailedOrder: action.payload,
       }
-    case ERROR_ORDER:
+    case ERROR_ORDER_INFO:
       return {
         ...state,
         isLoading: false,
         isError: true,
       }
-    // case HIDE_ORDER_DETAILS:
-    //   return {
-    //     ...state,
-    //     orderNumber: null,
-    //   }
     default:
       return state
   }

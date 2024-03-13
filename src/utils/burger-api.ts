@@ -1,5 +1,5 @@
 import { checkResponse } from './functions'
-import { IIngredient } from './prop-types'
+import { IIngredient, TOrder } from './prop-types'
 const API_URL = 'https://norma.nomoreparties.space/api/'
 
 type TServerResponce<T> = {
@@ -32,6 +32,15 @@ type TRegAuthResponce = TUserResponce & {
 type TPassLogoutResponce = TServerResponce<{
   message: string
 }>
+
+type TOrderDetailsResponce = TServerResponce<{
+  orders: TOrder[]
+}>
+
+export const getOrderDetailsRequest = (orderNumber: string) => {
+  return fetch(`${API_URL}orders/${orderNumber}`)
+    .then(res => checkResponse<TOrderDetailsResponce>(res))
+}
 
 export const getRequest = () => {
   return fetch(`${API_URL}ingredients`)

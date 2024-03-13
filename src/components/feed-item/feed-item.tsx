@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './feed-item.module.css'
-import { Link } from 'react-router-dom'
-import { IIngredient, TOrder } from '../../utils/prop-types'
+import { Link, useLocation } from 'react-router-dom'
+import { ICompound, TOrder } from '../../utils/prop-types'
 import { useSelector } from 'react-redux'
-import { getIngredientsByIds } from '../../utils/functions'
+import { getCompoundByIds } from '../../utils/functions'
 import icon_more from '../../images/illustration_more.png'
 
 interface IFeedItem {
@@ -12,15 +12,19 @@ interface IFeedItem {
 }
 
 const FeedItem: FC<IFeedItem> = ({ feed }) => {
+  const location = useLocation()
   const date = new Date(feed.createdAt)
   const allIngredients = useSelector((state: any) => state.ingredients.ingredients)
-  const feedIngredients = getIngredientsByIds(allIngredients, feed.ingredients)
-  const totalPrice = feedIngredients.reduce((acc: number, ingredient: IIngredient) => acc += ingredient.price, 0)
-  const feedIngredientsIcons = feedIngredients.map(ingredient => ingredient.image_mobile)
+  const feedCompound = getCompoundByIds(allIngredients, feed.ingredients)
+  const totalPrice = Object.values(feedCompound).reduce((acc: number, ingredient: ICompound) => acc += ingredient.price * ingredient.count, 0)
+  const feedIngredientsIcons = Object.values(feedCompound).map(ingredient => ingredient.image_mobile)
   const feedIngredientsIconsMain = feedIngredientsIcons.slice(0, 5)
 
   return (
-    <Link to='/feed/034535' className={`${styles.feed_item} p-6 mb-4`} >
+    <Link
+      to={`/feed/${feed.number}`}
+      state={{ background: location }}
+      className={`${styles.feed_item} p-6 mb-4`} >
       <div className={`${styles.feed_item__header} mb-6`}>
         <div className="text text_type_digits-default">#{feed.number}</div>
         <div className="text text_type_main-default text_color_inactive">
@@ -34,7 +38,7 @@ const FeedItem: FC<IFeedItem> = ({ feed }) => {
             {feedIngredientsIconsMain.map((image, i) => {
               return (
                 <li className={styles.feed_item__ingredient} key={i} style={{ zIndex: feedIngredientsIcons.length - i }}>
-                  <img src={image} alt={feedIngredients[i].name} />
+                  <img src={image} alt={Object.values(feedCompound)[i].name} />
                 </li>
               )
             })}

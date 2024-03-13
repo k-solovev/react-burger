@@ -5,6 +5,7 @@ import { TConstructorActions } from '../services/actions/constructor'
 import { TIngredientsActions } from '../services/actions/ingredients'
 import { TOrderDetailsActions } from '../services/actions/order-details'
 import { TUserActions } from '../services/actions/user'
+import { TOrderDetailsInfoActions } from '../services/actions/order-details-info'
 import { TFeedActions } from '../services/actions/feed'
 
 export interface IIngredient {
@@ -20,6 +21,10 @@ export interface IIngredient {
   image_mobile: string,
   image_large: string,
   __v: number,
+}
+
+export interface ICompound extends IIngredient {
+  count: number
 }
 
 export type TOrder = {
@@ -44,6 +49,7 @@ export type TAppActions =
   | TIngredientsActions
   | TOrderDetailsActions
   | TUserActions
+  | TOrderDetailsInfoActions
   | TFeedActions
 
 export type AppDispatch = typeof store.dispatch;
