@@ -1,9 +1,11 @@
 import { AppDispatch, RootState, TAppActions } from '../../utils/prop-types'
 import { Middleware, MiddlewareAPI } from 'redux'
-import { TGetFeedActions } from './middlewareTypes'
-import { TFeedActions } from '../actions/feed';
+import { TGetFeedActions, TGetUserOrdersActions } from './middlewareTypes'
+import { TFeedActions } from '../actions/feed'
+import { refreshToken } from '../../utils/burger-api';
 
-export const socketMiddleware = (wsActions: TGetFeedActions): Middleware => {
+
+export const socketMiddleware = (wsActions: TGetFeedActions | TGetUserOrdersActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
@@ -29,7 +31,19 @@ export const socketMiddleware = (wsActions: TGetFeedActions): Middleware => {
           const { data } = event;
           const json = JSON.parse(data)
 
-          dispatch({ type: onMessage, payload: json.orders, total: json.total, totalToday: json.totalToday });
+          if (json.message === 'Invalid or missing token') {
+            refreshToken().then(res => {
+              localStorage.setItem('refreshToken', res.refreshToken)
+              localStorage.setItem('accessToken', res.accessToken.split('Bearer ')[1])
+
+              const url = payload.split('?')[0]
+              const newUrl = `${url}?token=${localStorage.getItem('accessToken')}`
+
+              dispatch({ type: wsStart, payload: newUrl } as any)
+            })
+          } else {
+            dispatch({ type: onMessage, payload: json.orders, total: json.total, totalToday: json.totalToday });
+          }
         };
 
         socket.onclose = event => {

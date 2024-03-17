@@ -4,10 +4,6 @@ export const checkResponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
 }
 
-// export function getIngredientsByIds(allIngredients: IIngredient[], arrIds: string[]) {
-//   return arrIds.flatMap(id => allIngredients.filter(ingredient => ingredient._id === id))
-// }
-
 export function getCompoundByIds(allIngredients: IIngredient[], arrIds: string[]) {
   const result: { [key: string]: ICompound } = {}
 
@@ -23,4 +19,15 @@ export function getCompoundByIds(allIngredients: IIngredient[], arrIds: string[]
   })
 
   return result
+}
+
+export function statusFeedResult(status: string): string {
+  switch (status) {
+    case 'pending':
+      return 'Готовится'
+    case 'done':
+      return 'Выполнен'
+    default:
+      return 'Создан'
+  }
 }

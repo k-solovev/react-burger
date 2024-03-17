@@ -17,8 +17,13 @@
   align-items: center;
 }
 
-.feed_item__title {
+.feed_item__title,
+.feed_item__status {
   text-align: left;
+}
+
+.feed_item__status__success {
+  color: #00CCCC;
 }
 
 .feed_item__footer {

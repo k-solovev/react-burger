@@ -2,12 +2,21 @@ import { NavLink } from 'react-router-dom'
 import styles from './profile-orders.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogout } from '../../services/actions/user'
-import { SyntheticEvent } from 'react';
-import FeedList from '../../components/feedlist/feedlist';
+import { SyntheticEvent, useEffect } from 'react'
+import FeedList from '../../components/feedlist/feedlist'
+import { wsUserOrdersConnectionStart, wsUserOrdersDisconnect } from '../../services/actions/user-orders'
 
 export const ProfileOrdersPage = () => {
-  const user = useSelector((state: any) => state.user.user)
+  const orders = useSelector((state: any) => state.userOrders.orders)
+  const invertedOrders = orders && [...orders].reverse()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const userOrdersUrl = 'wss://norma.nomoreparties.space/orders'
+    const token = localStorage.getItem('accessToken')
+
+    dispatch(wsUserOrdersConnectionStart(`${userOrdersUrl}?token=${token}`) as any)
+  }, [dispatch])
 
   const logoutHandler = (e: SyntheticEvent) => {
     e.preventDefault()
@@ -51,7 +60,7 @@ export const ProfileOrdersPage = () => {
       </div>
 
       <div className={styles.profile__main}>
-        {/* <FeedList /> */}
+        {invertedOrders && <FeedList orders={invertedOrders} showStatus={true} />}
       </div>
     </div>
   );

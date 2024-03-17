@@ -33,11 +33,6 @@ export const orderdetailsReducer = (state: IInitialState = initialState, action:
         isLoading: false,
         isError: true,
       }
-    // case HIDE_ORDER_DETAILS:
-    //   return {
-    //     ...state,
-    //     orderNumber: null,
-    //   }
     default:
       return state
   }

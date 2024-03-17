@@ -5,14 +5,15 @@ import { TOrder } from '../../utils/prop-types'
 
 interface IFeedList {
   orders: Array<TOrder>
+  showStatus?: boolean
 }
 
-const FeedList: FC<IFeedList> = ({ orders }) => {
+const FeedList: FC<IFeedList> = ({ orders, showStatus = false }) => {
   return (
     <div className={`${styles.feedlist} pr-2`}>
       {orders.map(feed => {
         return (
-          <FeedItem feed={feed} key={feed._id} />
+          <FeedItem feed={feed} showStatus={showStatus} key={feed._id} />
         )
       })}
     </div>

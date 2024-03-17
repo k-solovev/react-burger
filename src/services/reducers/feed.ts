@@ -41,7 +41,6 @@ export const feedReducer = (state: IInitialState = initialState, action: TFeedAc
       return {
         ...state,
         wsFeedError: false,
-        wsFeedDisconnect: false,
         wsFeedConnectOpen: false,
       }
     case WS_FEED_ERROR:

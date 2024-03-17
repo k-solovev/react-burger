@@ -4,14 +4,15 @@ import styles from './feed-item.module.css'
 import { Link, useLocation } from 'react-router-dom'
 import { ICompound, TOrder } from '../../utils/prop-types'
 import { useSelector } from 'react-redux'
-import { getCompoundByIds } from '../../utils/functions'
+import { getCompoundByIds, statusFeedResult } from '../../utils/functions'
 import icon_more from '../../images/illustration_more.png'
 
 interface IFeedItem {
   feed: TOrder
+  showStatus?: boolean
 }
 
-const FeedItem: FC<IFeedItem> = ({ feed }) => {
+const FeedItem: FC<IFeedItem> = ({ feed, showStatus = false }) => {
   const location = useLocation()
   const date = new Date(feed.createdAt)
   const allIngredients = useSelector((state: any) => state.ingredients.ingredients)
@@ -19,6 +20,7 @@ const FeedItem: FC<IFeedItem> = ({ feed }) => {
   const totalPrice = Object.values(feedCompound).reduce((acc: number, ingredient: ICompound) => acc += ingredient.price * ingredient.count, 0)
   const feedIngredientsIcons = Object.values(feedCompound).map(ingredient => ingredient.image_mobile)
   const feedIngredientsIconsMain = feedIngredientsIcons.slice(0, 5)
+  const status = statusFeedResult(feed.status)
 
   return (
     <Link
@@ -31,7 +33,8 @@ const FeedItem: FC<IFeedItem> = ({ feed }) => {
           <FormattedDate date={date} />
         </div>
       </div>
-      <div className={`${styles.feed_item__title} text text_type_main-medium mb-6`}>{feed.name}</div>
+      <div className={`${styles.feed_item__title} text text_type_main-medium ${showStatus ? 'mb-2' : 'mb-2'}`}>{feed.name}</div>
+      {showStatus && status && (<div className={`${styles.feed_item__status} ${status === 'Выполнен' && styles.feed_item__status__success} text text_type_main-small mb-6`}>{status}</div>)}
       <div className={styles.feed_item__footer}>
         {feedIngredientsIcons.length && (
           <ul className={styles.feed_item__ingredients_list}>

@@ -7,6 +7,7 @@ import { TOrderDetailsActions } from '../services/actions/order-details'
 import { TUserActions } from '../services/actions/user'
 import { TOrderDetailsInfoActions } from '../services/actions/order-details-info'
 import { TFeedActions } from '../services/actions/feed'
+import { TUserOrdersActions } from '../services/actions/user-orders'
 
 export interface IIngredient {
   _id: string,
@@ -51,6 +52,7 @@ export type TAppActions =
   | TUserActions
   | TOrderDetailsInfoActions
   | TFeedActions
+  | TUserOrdersActions
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
