@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import AppHeader from '../app-header/app-header'
@@ -25,13 +25,15 @@ import {
   NotFound404,
   OrderDetailPage,
 } from '../../pages'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 const App = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { isLoading, isError } = useSelector((store: any) => store.ingredients)
-  const data = useSelector((store: any) => store.ingredients.ingredients)
+  const { isLoading, isError } = useAppSelector(store => store.ingredients)
+  const user = useAppSelector(state => state.user.user)
+  const data = useAppSelector(store => store.ingredients.ingredients)
 
   const background = location.state && location.state.background
 
@@ -62,7 +64,7 @@ const App = () => {
             <Route path='/reset-password' element={<ProtectedRouteElement element={<ResetPasswordPage />} anonymous={true} />} />
             <Route path='/login' element={<ProtectedRouteElement element={<LoginPage />} anonymous={true} />} />
             <Route path='/register' element={<ProtectedRouteElement element={<RegistrationPage />} anonymous={true} />} />
-            <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} />
+            {user && <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage user={user} />} />} />}
             <Route path='/profile/orders' element={<ProtectedRouteElement element={<ProfileOrdersPage />} />} />
             <Route path='/profile/orders/:orderId' element={<OrderDetailPage />} />
             <Route path='/feed/' element={<FeedPage />} />

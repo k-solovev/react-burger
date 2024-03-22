@@ -1,13 +1,14 @@
 import { NavLink } from 'react-router-dom'
 import styles from './profile-orders.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { userLogout } from '../../services/actions/user'
 import { SyntheticEvent, useEffect } from 'react'
 import FeedList from '../../components/feedlist/feedlist'
 import { wsUserOrdersConnectionStart, wsUserOrdersDisconnect } from '../../services/actions/user-orders'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 export const ProfileOrdersPage = () => {
-  const orders = useSelector((state: any) => state.userOrders.orders)
+  const orders = useAppSelector(state => state.userOrders.orders)
   const invertedOrders = orders && [...orders].reverse()
   const dispatch = useDispatch()
 
@@ -16,6 +17,10 @@ export const ProfileOrdersPage = () => {
     const token = localStorage.getItem('accessToken')
 
     dispatch(wsUserOrdersConnectionStart(`${userOrdersUrl}?token=${token}`) as any)
+
+    return () => {
+      dispatch(wsUserOrdersDisconnect() as any)
+    }
   }, [dispatch])
 
   const logoutHandler = (e: SyntheticEvent) => {

@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import FeedList from '../../components/feedlist/feedlist'
 import FeedStat from '../../components/feedstat/feedstat'
 import styles from './feed.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { wsFeedConnectionStart, wsFeedDisconnect } from '../../services/actions/feed'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 export const FeedPage = () => {
   const dispatch = useDispatch()
-  const { orders, totalOrders, totalToday } = useSelector((state: any) => state.orders)
+  const { orders, totalOrders, totalToday } = useAppSelector(state => state.orders)
 
   useEffect(() => {
     dispatch(wsFeedConnectionStart('wss://norma.nomoreparties.space/orders/all') as any)

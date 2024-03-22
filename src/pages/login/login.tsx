@@ -2,15 +2,16 @@ import { SyntheticEvent, useEffect } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styles from './login.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { userLogin } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 export const LoginPage = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const { formFields, handleChange } = useForm({ email: '', password: '' })
-  const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn)
+  const isLoggedIn = useAppSelector(state => state.user.isLoggedIn)
   const navigate = useNavigate()
   const navigateTo = location.state?.from?.pathname ? location.state?.from?.pathname : '/'
 

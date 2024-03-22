@@ -3,15 +3,16 @@ import styles from './order-detail-info.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC, useEffect } from 'react'
 import { getOrderDetails } from '../../services/actions/order-details-info'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getCompoundByIds } from '../../utils/functions';
 import { ICompound } from '../../utils/prop-types';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 const OrderDetailInfo: FC = () => {
   const dispatch = useDispatch()
   const { orderNumber = '' } = useParams()
-  const order = useSelector((state: any) => state.detailedOrder.detailedOrder)
-  const allIngredients = useSelector((state: any) => state.ingredients.ingredients)
+  const order = useAppSelector(state => state.detailedOrder.detailedOrder)
+  const allIngredients = useAppSelector(state => state.ingredients.ingredients)
   const orderCompound = order ? getCompoundByIds(allIngredients, order.ingredients) : []
   const totalPrice = Object.values(orderCompound).reduce((acc: number, ingredient: ICompound) => acc += ingredient.price * ingredient.count, 0)
 
@@ -21,7 +22,7 @@ const OrderDetailInfo: FC = () => {
 
   return (
     <>
-      {!order && orderCompound ? (
+      {!order ? (
         <div className={`${styles.is_loading_wrap} text text_type_main-default`}>Данные загружаются...</div>
       )
         :

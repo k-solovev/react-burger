@@ -23,8 +23,13 @@ import {
   TUserActions,
 } from '../actions/user'
 
+export interface IUser {
+  name: string
+  email: string
+}
+
 interface IInitialState {
-  user: null | object
+  user: null | IUser
   isLoading: boolean
   isError: boolean
   isLoggedIn: boolean

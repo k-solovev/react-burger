@@ -1,23 +1,32 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { NavLink, useNavigate } from 'react-router-dom'
 import styles from './profile.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { userLogout, userUpdate } from '../../services/actions/user'
-import { SyntheticEvent, useEffect } from 'react'
+import { FC, SyntheticEvent, useEffect } from 'react'
 import { getUser } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
-export const ProfilePage = () => {
-  const user = useSelector((state: any) => state.user.user)
+interface IProfilePage {
+  user: {
+    name: string
+    email: string
+  }
+}
+
+export const ProfilePage: FC<IProfilePage> = ({ user }) => {
+  //const user = useAppSelector(state => state.user.user)
   const { formFields, handleChange, setFormFields } = useForm({ name: user.name, email: user.email, password: '' })
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!user) {
-      dispatch<any>(getUser())
-    }
-  }, [dispatch, user])
+  // useEffect(() => {
+  //   if (!user) {
+  //     dispatch<any>(getUser())
+  //   }
+  // }, [dispatch, user])
 
   const logoutHandler = (e: SyntheticEvent) => {
     e.preventDefault()
@@ -26,7 +35,9 @@ export const ProfilePage = () => {
   }
 
   const cancelHandler = () => {
-    setFormFields({ name: user.name, email: user.email, password: '' })
+    if (user) {
+      setFormFields({ name: user.name, email: user.email, password: '' })
+    }
   }
 
   const onChangeProfile = (e: SyntheticEvent) => {

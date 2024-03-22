@@ -3,9 +3,9 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import styles from './feed-item.module.css'
 import { Link, useLocation } from 'react-router-dom'
 import { ICompound, TOrder } from '../../utils/prop-types'
-import { useSelector } from 'react-redux'
 import { getCompoundByIds, statusFeedResult } from '../../utils/functions'
 import icon_more from '../../images/illustration_more.png'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 interface IFeedItem {
   feed: TOrder
@@ -15,7 +15,7 @@ interface IFeedItem {
 const FeedItem: FC<IFeedItem> = ({ feed, showStatus = false }) => {
   const location = useLocation()
   const date = new Date(feed.createdAt)
-  const allIngredients = useSelector((state: any) => state.ingredients.ingredients)
+  const allIngredients = useAppSelector(state => state.ingredients.ingredients)
   const feedCompound = getCompoundByIds(allIngredients, feed.ingredients)
   const totalPrice = Object.values(feedCompound).reduce((acc: number, ingredient: ICompound) => acc += ingredient.price * ingredient.count, 0)
   const feedIngredientsIcons = Object.values(feedCompound).map(ingredient => ingredient.image_mobile)

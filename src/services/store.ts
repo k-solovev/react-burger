@@ -4,11 +4,15 @@ import { rootReducer } from './reducers'
 import { socketMiddleware } from './middleware/websocket'
 import { getFeedActions, getUserOrdersActions } from './middleware/middlewareTypes'
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
+  }
+}
+
 const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(getFeedActions), socketMiddleware(getUserOrdersActions)))
 
-export const store = createStore(rootReducer, enhancer)
+export const store = createStore(rootReducer, {}, enhancer)

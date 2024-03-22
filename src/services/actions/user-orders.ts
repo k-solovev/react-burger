@@ -1,4 +1,4 @@
-import { TFeed } from '../../utils/prop-types'
+import { TOrder } from '../../utils/prop-types'
 
 export const WS_USER_ORDERS_CONNECTION_START: 'WS_USER_ORDERS_CONNECTION_START' = 'WS_USER_ORDERS_CONNECTION_START'
 export const WS_USER_ORDERS_DISCONNECT: 'WS_USER_ORDERS_DISCONNECT' = 'WS_USER_ORDERS_DISCONNECT'
@@ -13,7 +13,7 @@ interface IWsUserOrdersConnectionStart {
 
 interface IWsUserOrdersGetOrders {
   type: typeof WS_USER_ORDERS_GET_ORDERS
-  payload: TFeed,
+  payload: TOrder[],
   total: number
   totalToday: number
 }
@@ -44,7 +44,7 @@ export const wsUserOrdersConnectionStart = (url: string): IWsUserOrdersConnectio
 export const wsUserOrdersConnectionOpen = (): IWsUserOrdersConnectOpen => ({ type: WS_USER_ORDERS_CONNECT_OPEN })
 export const wsUserOrdersDisconnect = (): IWsUserOrdersDisconnect => ({ type: WS_USER_ORDERS_DISCONNECT })
 export const wsUserOrdersError = (): IWsUserOrdersError => ({ type: WS_USER_ORDERS_ERROR })
-export const wsUserOrdersGetOrders = (orders: TFeed, total: number, totalToday: number): IWsUserOrdersGetOrders => ({
+export const wsUserOrdersGetOrders = (orders: TOrder[], total: number, totalToday: number): IWsUserOrdersGetOrders => ({
   type: WS_USER_ORDERS_GET_ORDERS,
   payload: orders,
   total: total,

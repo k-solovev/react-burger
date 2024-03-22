@@ -6,7 +6,7 @@ import {
   WS_FEED_GET_ORDERS,
   TFeedActions
 } from '../actions/feed'
-import { TFeed } from '../../utils/prop-types'
+import { TOrder } from '../../utils/prop-types'
 
 
 interface IInitialState {
@@ -14,7 +14,7 @@ interface IInitialState {
   wsFeedConnectOpen: boolean,
   wsFeedConnectClosed: boolean,
   wsFeedError: boolean,
-  orders: TFeed | null,
+  orders: TOrder[] | null,
   totalOrders: number | null
   totalToday: number | null
 }

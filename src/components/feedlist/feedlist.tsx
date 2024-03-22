@@ -4,7 +4,7 @@ import styles from './feedlist.module.css'
 import { TOrder } from '../../utils/prop-types'
 
 interface IFeedList {
-  orders: Array<TOrder>
+  orders: TOrder[]
   showStatus?: boolean
 }
 

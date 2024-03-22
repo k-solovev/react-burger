@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DELETE_INGREDIENT } from '../../services/actions/constructor'
 import BurgerConstructorItem from '../burger-constructor-item/burger-constructor-item'
 import { IIngredient } from '../../utils/prop-types'
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 interface IConstructorElementType extends IIngredient {
   id: string
@@ -11,7 +12,7 @@ interface IConstructorElementType extends IIngredient {
 
 const BurgerConstructorList = () => {
   const dispatch = useDispatch()
-  const ingredients = useSelector((store: any) => store.burgerConstructor.ingredients)
+  const ingredients: any = useAppSelector(store => store.burgerConstructor.ingredients)
 
   const removeIngredientHandler = (index: number) => {
     dispatch({ type: DELETE_INGREDIENT, payload: index })

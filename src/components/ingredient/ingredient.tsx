@@ -1,11 +1,12 @@
 import { useMemo, useState, FC } from 'react'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './ingredient.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { SET_ACTIVE_INGREDIENT } from '../../services/actions/active-ingredient'
 import { useDrag } from 'react-dnd'
 import { Link, useLocation } from 'react-router-dom'
 import { IIngredient } from '../../utils/prop-types'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 interface IIngredientProps {
   ingredient: IIngredient
@@ -15,8 +16,8 @@ const Ingredient: FC<IIngredientProps> = ({ ingredient }) => {
   const location = useLocation()
   const [elementCount, setElementCount] = useState(0)
   const dispatch = useDispatch()
-  const stateBun = useSelector((state: any) => state.burgerConstructor.bun)
-  const stateIngredients = useSelector((state: any) => state.burgerConstructor.ingredients)
+  const stateBun = useAppSelector(state => state.burgerConstructor.bun)
+  const stateIngredients = useAppSelector(state => state.burgerConstructor.ingredients)
 
   const calculateCount = () => {
     const allStateIngredients = [...stateIngredients, ...(stateBun ? [stateBun] : []), ...(stateBun ? [stateBun] : [])]

@@ -1,13 +1,13 @@
 import { useState, useRef, useMemo } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-ingredients.module.css'
-import { useSelector } from 'react-redux'
 import { IIngredient } from '../../utils/prop-types';
 
 import IngredientsSection from '../ingredients-section/ingredients-section';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 const BurgerIngredients = () => {
-  const ingredients = useSelector((store: any) => store.ingredients.ingredients)
+  const ingredients = useAppSelector(store => store.ingredients.ingredients)
   const [curTab, setCurTab] = useState('buns')
   const tabsRef = useRef<HTMLDivElement>(null)
   const bunsRef = useRef<HTMLDivElement>(null)

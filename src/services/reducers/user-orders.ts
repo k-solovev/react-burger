@@ -6,7 +6,7 @@ import {
   WS_USER_ORDERS_GET_ORDERS,
   TUserOrdersActions
 } from '../actions/user-orders'
-import { TFeed } from '../../utils/prop-types'
+import { TOrder } from '../../utils/prop-types'
 
 
 interface IInitialState {
@@ -14,7 +14,7 @@ interface IInitialState {
   wsUserOrdersConnectOpen: boolean,
   wsUserOrdersConnectClosed: boolean,
   wsUserOrdersError: boolean,
-  orders: TFeed | null,
+  orders: TOrder[] | null,
   totalOrders: number | null
   totalToday: number | null
 }
