@@ -1,15 +1,15 @@
-import { SyntheticEvent, useEffect } from 'react'
+import { SyntheticEvent, useEffect, ChangeEvent } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styles from './login.module.css'
-import { useDispatch } from 'react-redux'
 import { userLogin } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
 import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 export const LoginPage = () => {
   const location = useLocation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { formFields, handleChange } = useForm({ email: '', password: '' })
   const isLoggedIn = useAppSelector(state => state.user.isLoggedIn)
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ export const LoginPage = () => {
 
   const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch<any>(userLogin(
+    dispatch(userLogin(
       formFields.email,
       formFields.password,
     ))
@@ -43,7 +43,7 @@ export const LoginPage = () => {
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         value={formFields.email}
-        onChange={(e) => handleChange(e)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
       <Input
         type={'password'}
@@ -55,7 +55,7 @@ export const LoginPage = () => {
         extraClass={`mb-6 ${styles.form_input}`}
         icon={'ShowIcon'}
         value={formFields.password}
-        onChange={(e) => handleChange(e)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
       <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Войти

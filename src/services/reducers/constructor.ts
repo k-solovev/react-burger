@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { ADD_BUN, ADD_INGREDIENT, DELETE_INGREDIENT, SORT_INGREDIENTS, TConstructorActions } from '../actions/constructor'
+import { ADD_BUN, ADD_INGREDIENT, DELETE_INGREDIENT, SORT_INGREDIENTS, RESET_INGREDIENTS, TConstructorActions } from '../actions/constructor'
 import { IIngredient } from '../../utils/prop-types'
 
 interface IInitialState {
@@ -37,6 +37,12 @@ export const constructorReducer = (state: IInitialState = initialState, action: 
       return {
         ...state,
         ingredients: ingredientsCopy,
+      }
+    case RESET_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: [],
+        bun: null,
       }
     default:
       return state

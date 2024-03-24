@@ -39,7 +39,7 @@ export const socketMiddleware = (wsActions: TGetFeedActions | TGetUserOrdersActi
               const url = payload.split('?')[0]
               const newUrl = `${url}?token=${localStorage.getItem('accessToken')}`
 
-              dispatch({ type: wsStart, payload: newUrl } as any)
+              dispatch({ type: wsStart, payload: newUrl })
             })
           } else {
             dispatch({ type: onMessage, payload: json.orders, total: json.total, totalToday: json.totalToday });

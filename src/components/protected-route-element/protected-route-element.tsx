@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 interface IProtectedRouteElement {
   element: React.ReactElement,
@@ -8,7 +8,7 @@ interface IProtectedRouteElement {
 }
 
 const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element, anonymous = false }) => {
-  const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn)
+  const isLoggedIn = useAppSelector(store => store.user.isLoggedIn)
 
   const location = useLocation()
   const from = location.state?.from || '/'

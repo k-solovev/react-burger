@@ -1,6 +1,6 @@
 import { getRequest } from '../../utils/burger-api'
 import { IIngredient } from '../../utils/prop-types'
-import { AppDispatch, AppThunk } from '../../utils/prop-types'
+import { AppDispatch } from '../../utils/prop-types'
 
 export const REQUEST_INGREDIENTS: 'REQUEST_INGREDIENTS' = 'REQUEST_INGREDIENTS'
 export const SUCCESS_INGREDIENTS: 'SUCCESS_INGREDIENTS' = 'SUCCESS_INGREDIENTS'
@@ -28,7 +28,7 @@ const requestIngredients = (): IRequestIngredients => ({ type: REQUEST_INGREDIEN
 const successIngredients = (ingredients: IIngredient[]): ISuccessIngredients => ({ type: SUCCESS_INGREDIENTS, ingredients })
 const errorIngredients = (): IErrorIngredients => ({ type: ERROR_INGREDIENTS })
 
-export const getIngredients = (): AppThunk => {
+export const getIngredients = () => {
   return function (dispatch: AppDispatch) {
     dispatch(requestIngredients())
     getRequest().then(res => {

@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom'
 import styles from './reset-password.module.css'
 import { resetPassword } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
-import { SyntheticEvent } from 'react'
-import { useDispatch } from 'react-redux'
+import { SyntheticEvent, ChangeEvent } from 'react'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 export const ResetPasswordPage = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { formFields, handleChange } = useForm({ password: '', token: '' })
 
   const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch<any>(resetPassword(formFields.password, formFields.token))
+    dispatch(resetPassword(formFields.password, formFields.token))
   }
 
   return (
@@ -28,7 +28,7 @@ export const ResetPasswordPage = () => {
         extraClass={`mb-6 ${styles.form_input}`}
         icon={'ShowIcon'}
         value={formFields.password}
-        onChange={(e) => handleChange(e)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
       <Input
         type={'text'}
@@ -39,7 +39,7 @@ export const ResetPasswordPage = () => {
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         value={formFields.token}
-        onChange={(e) => handleChange(e)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
       <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Сохранить

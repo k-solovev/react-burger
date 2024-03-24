@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor.module.css'
-import { useDispatch } from 'react-redux';
-import { createOrder } from '../../services/actions/order-details'
+import { createOrder, resetOrderNumber } from '../../services/actions/order-details'
 import BurgerConstructorPlug from '../burger-constructor-plug/burger-constructor-plug';
 import BurgerConstructorList from '../burger-constructor-list/burger-constructor-list';
 import { useDrop } from 'react-dnd';
@@ -10,11 +9,12 @@ import { ADD_BUN, ADD_INGREDIENT } from '../../services/actions/constructor'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IIngredient } from '../../utils/prop-types'
 import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 const BurgerConstructor = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const bun = useAppSelector(store => store.burgerConstructor.bun)
   const ingredients = useAppSelector(store => store.burgerConstructor.ingredients)
   const user = useAppSelector(store => store.user.user)
@@ -39,10 +39,11 @@ const BurgerConstructor = () => {
 
   const handleOrderClick = () => {
     if (user && bun) {
+      dispatch(resetOrderNumber())
       const ingredientsForFetch = ingredients.map((elem: IIngredient) => elem._id)
       ingredientsForFetch.unshift(bun._id)
       ingredientsForFetch.push(bun._id)
-      dispatch(createOrder(ingredientsForFetch) as any)
+      dispatch(createOrder(ingredientsForFetch))
       navigate('/order', { state: { background: location } })
     } else {
       navigate('/login')
@@ -61,7 +62,7 @@ const BurgerConstructor = () => {
               <ConstructorElement
                 type="top"
                 isLocked={true}
-                text={bun.name}
+                text={`${bun.name} (верх)`}
                 price={bun.price}
                 thumbnail={bun.image}
               />
@@ -89,7 +90,7 @@ const BurgerConstructor = () => {
               <ConstructorElement
                 type="bottom"
                 isLocked={true}
-                text={bun.name}
+                text={`${bun.name} (низ)`}
                 price={bun.price}
                 thumbnail={bun.image}
               />

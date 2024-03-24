@@ -1,4 +1,4 @@
-import { REQUEST_ORDER, SUCCESS_ORDER, ERROR_ORDER, TOrderDetailsActions } from '../actions/order-details'
+import { REQUEST_ORDER, SUCCESS_ORDER, ERROR_ORDER, RESET_ORDER_NUMBER, TOrderDetailsActions } from '../actions/order-details'
 
 interface IInitialState {
   isLoading: boolean,
@@ -32,6 +32,11 @@ export const orderdetailsReducer = (state: IInitialState = initialState, action:
         ...state,
         isLoading: false,
         isError: true,
+      }
+    case RESET_ORDER_NUMBER:
+      return {
+        ...state,
+        orderNumber: null,
       }
     default:
       return state

@@ -1,12 +1,10 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { NavLink, useNavigate } from 'react-router-dom'
 import styles from './profile.module.css'
-import { useDispatch } from 'react-redux'
 import { userLogout, userUpdate } from '../../services/actions/user'
-import { FC, SyntheticEvent, useEffect } from 'react'
-import { getUser } from '../../services/actions/user'
+import { FC, SyntheticEvent, ChangeEvent } from 'react'
 import { useForm } from '../../hooks/useForm'
-import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 interface IProfilePage {
   user: {
@@ -16,21 +14,14 @@ interface IProfilePage {
 }
 
 export const ProfilePage: FC<IProfilePage> = ({ user }) => {
-  //const user = useAppSelector(state => state.user.user)
   const { formFields, handleChange, setFormFields } = useForm({ name: user.name, email: user.email, password: '' })
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   if (!user) {
-  //     dispatch<any>(getUser())
-  //   }
-  // }, [dispatch, user])
 
   const logoutHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch<any>(userLogout())
+    dispatch(userLogout())
     navigate('/login')
   }
 
@@ -91,7 +82,7 @@ export const ProfilePage: FC<IProfilePage> = ({ user }) => {
             extraClass={'mb-6'}
             icon={'EditIcon'}
             value={formFields.name}
-            onChange={(e) => handleChange(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
           />
           <Input
             type={'text'}
@@ -103,7 +94,7 @@ export const ProfilePage: FC<IProfilePage> = ({ user }) => {
             extraClass={'mb-6'}
             icon={'EditIcon'}
             value={formFields.email}
-            onChange={(e) => handleChange(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
           />
           <Input
             type={'password'}
@@ -115,7 +106,7 @@ export const ProfilePage: FC<IProfilePage> = ({ user }) => {
             extraClass={'mb-6'}
             icon={'EditIcon'}
             value={formFields.password}
-            onChange={(e) => handleChange(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
           />
 
           <div className={styles.profile__btns}>

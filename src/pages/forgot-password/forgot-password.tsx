@@ -1,19 +1,19 @@
-import { SyntheticEvent } from 'react'
+import { SyntheticEvent, ChangeEvent } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './forgot-password.module.css'
 import { forgotPassword } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { formFields, handleChange } = useForm({ email: '' })
 
   const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch<any>(forgotPassword(formFields.email))
+    dispatch(forgotPassword(formFields.email))
     navigate('/reset-password')
   }
 
@@ -29,7 +29,7 @@ export const ForgotPasswordPage = () => {
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         value={formFields.email}
-        onChange={(e) => { handleChange(e) }}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e) }}
       />
       <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Восстановить

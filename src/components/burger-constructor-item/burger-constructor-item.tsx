@@ -3,7 +3,7 @@ import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor-item.module.css'
 import { useDrag, useDrop } from 'react-dnd';
 import { SORT_INGREDIENTS } from '../../services/actions/constructor'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 interface IBurgerConstructorItem {
   children: ReactNode,
@@ -15,7 +15,7 @@ type TDragObject = {
 }
 
 const BurgerConstructorItem: FC<IBurgerConstructorItem> = ({ children, index }) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [, dragRef] = useDrag({
     type: 'ingredientSort',
     item: () => ({ index }),

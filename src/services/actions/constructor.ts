@@ -3,6 +3,7 @@ import { IIngredient } from '../../utils/prop-types'
 export const ADD_BUN: 'ADD_BUN' = 'ADD_BUN'
 export const ADD_INGREDIENT: 'ADD_INGREDIENT' = 'ADD_INGREDIENT'
 export const DELETE_INGREDIENT: 'DELETE_INGREDIENT' = 'DELETE_INGREDIENT'
+export const RESET_INGREDIENTS: 'RESET_INGREDIENTS' = 'RESET_INGREDIENTS'
 export const SORT_INGREDIENTS: 'SORT_INGREDIENTS' = 'SORT_INGREDIENTS'
 
 interface IAddBun {
@@ -26,8 +27,13 @@ interface ISortIngredient {
   to: number;
 }
 
+interface IResetIngredients {
+  type: typeof RESET_INGREDIENTS;
+}
+
 export type TConstructorActions =
   | IAddBun
   | IAddIngredient
   | IDeleteIngredient
   | ISortIngredient
+  | IResetIngredients

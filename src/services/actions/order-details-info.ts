@@ -1,5 +1,5 @@
 import { getOrderDetailsRequest } from '../../utils/burger-api'
-import { AppDispatch, AppThunk, TOrder } from '../../utils/prop-types'
+import { AppDispatch, TOrder } from '../../utils/prop-types'
 
 export const REQUEST_ORDER_INFO: 'REQUEST_ORDER_INFO' = 'REQUEST_ORDER_INFO'
 export const SUCCESS_ORDER_INFO: 'SUCCESS_ORDER_INFO' = 'SUCCESS_ORDER_INFO'
@@ -27,7 +27,7 @@ const requestOrderDetails = (): IRequestOrder => ({ type: REQUEST_ORDER_INFO })
 const successOrderDetails = (order: TOrder): ISuccessOrder => ({ type: SUCCESS_ORDER_INFO, payload: order })
 const errorOrderDetails = (): IErrorOrder => ({ type: ERROR_ORDER_INFO })
 
-export const getOrderDetails = (orderNumber: string): AppThunk => {
+export const getOrderDetails = (orderNumber: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(requestOrderDetails())
 

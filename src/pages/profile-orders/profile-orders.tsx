@@ -1,31 +1,31 @@
 import { NavLink } from 'react-router-dom'
 import styles from './profile-orders.module.css'
-import { useDispatch } from 'react-redux'
 import { userLogout } from '../../services/actions/user'
 import { SyntheticEvent, useEffect } from 'react'
 import FeedList from '../../components/feedlist/feedlist'
 import { wsUserOrdersConnectionStart, wsUserOrdersDisconnect } from '../../services/actions/user-orders'
 import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 export const ProfileOrdersPage = () => {
   const orders = useAppSelector(state => state.userOrders.orders)
   const invertedOrders = orders && [...orders].reverse()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const userOrdersUrl = 'wss://norma.nomoreparties.space/orders'
     const token = localStorage.getItem('accessToken')
 
-    dispatch(wsUserOrdersConnectionStart(`${userOrdersUrl}?token=${token}`) as any)
+    dispatch(wsUserOrdersConnectionStart(`${userOrdersUrl}?token=${token}`))
 
     return () => {
-      dispatch(wsUserOrdersDisconnect() as any)
+      dispatch(wsUserOrdersDisconnect())
     }
   }, [dispatch])
 
   const logoutHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch<any>(userLogout())
+    dispatch(userLogout())
   }
 
   return (

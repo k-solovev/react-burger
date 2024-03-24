@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import AppHeader from '../app-header/app-header'
@@ -26,11 +25,12 @@ import {
   OrderDetailPage,
 } from '../../pages'
 import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 const App = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { isLoading, isError } = useAppSelector(store => store.ingredients)
   const user = useAppSelector(state => state.user.user)
   const data = useAppSelector(store => store.ingredients.ingredients)
@@ -42,8 +42,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    dispatch(getIngredients() as any)
-    dispatch(getUser() as any)
+    dispatch(getIngredients())
+    dispatch(getUser())
   }, [dispatch])
 
   return (

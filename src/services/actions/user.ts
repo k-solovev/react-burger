@@ -222,7 +222,7 @@ export const userUpdate = (name: string, email: string, password: string): AppTh
   }
 }
 
-export const resetPassword = (password: string, token: string): AppThunk => {
+export const resetPassword = (password: string, token: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(requestResetPassword())
 
@@ -239,7 +239,7 @@ export const resetPassword = (password: string, token: string): AppThunk => {
   }
 }
 
-export const forgotPassword = (email: string): AppThunk => {
+export const forgotPassword = (email: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(requestForgotPassword())
 
@@ -256,7 +256,7 @@ export const forgotPassword = (email: string): AppThunk => {
   }
 }
 
-export const userRegister = (name: string, email: string, password: string): AppThunk => {
+export const userRegister = (name: string, email: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(requestRegistration())
 
@@ -276,7 +276,7 @@ export const userRegister = (name: string, email: string, password: string): App
   }
 }
 
-export const userLogin = (email: string, password: string): AppThunk => {
+export const userLogin = (email: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch(requestLogin())
 
@@ -296,7 +296,7 @@ export const userLogin = (email: string, password: string): AppThunk => {
   }
 }
 
-export const userLogout = (): AppThunk => {
+export const userLogout = () => {
   return function (dispatch: AppDispatch) {
     dispatch(requestLogout())
 
@@ -316,7 +316,7 @@ export const userLogout = (): AppThunk => {
   }
 }
 
-export const getUser = (): AppThunk => {
+export const getUser = () => {
   return function (dispatch: AppDispatch) {
     dispatch(requestUser())
 
@@ -332,7 +332,7 @@ export const getUser = (): AppThunk => {
           refreshToken().then(res => {
             localStorage.setItem('refreshToken', res.refreshToken)
             localStorage.setItem('accessToken', res.accessToken.split('Bearer ')[1])
-            dispatch(getUser() as any)
+            dispatch(getUser())
           })
         } else {
           dispatch(errorUser())

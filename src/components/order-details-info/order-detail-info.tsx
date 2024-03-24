@@ -3,13 +3,13 @@ import styles from './order-detail-info.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC, useEffect } from 'react'
 import { getOrderDetails } from '../../services/actions/order-details-info'
-import { useDispatch } from 'react-redux'
 import { getCompoundByIds } from '../../utils/functions';
 import { ICompound } from '../../utils/prop-types';
 import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 const OrderDetailInfo: FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { orderNumber = '' } = useParams()
   const order = useAppSelector(state => state.detailedOrder.detailedOrder)
   const allIngredients = useAppSelector(state => state.ingredients.ingredients)
@@ -17,7 +17,7 @@ const OrderDetailInfo: FC = () => {
   const totalPrice = Object.values(orderCompound).reduce((acc: number, ingredient: ICompound) => acc += ingredient.price * ingredient.count, 0)
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderNumber) as any)
+    dispatch(getOrderDetails(orderNumber))
   }, [dispatch])
 
   return (
