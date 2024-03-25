@@ -20,16 +20,29 @@ import {
   REQUEST_USER_UPDATE,
   SUCCESS_USER_UPDATE,
   ERROR_USER_UPDATE,
+  TUserActions,
 } from '../actions/user'
 
-const initialState = {
+export interface IUser {
+  name: string
+  email: string
+}
+
+interface IInitialState {
+  user: null | IUser
+  isLoading: boolean
+  isError: boolean
+  isLoggedIn: boolean
+}
+
+const initialState: IInitialState = {
   user: null,
   isLoading: false,
   isError: false,
   isLoggedIn: false,
 }
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state: IInitialState = initialState, action: TUserActions) => {
   switch (action.type) {
     case REQUEST_REGISTRATION:
       return {

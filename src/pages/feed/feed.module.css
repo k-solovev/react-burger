@@ -1,0 +1,19 @@
+.feed_page {
+  width: 100%;
+  max-width: 1225px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feed__left,
+.feed__right {
+  width: 100%;
+  text-align: left;
+}
+
+.feed__right {
+  padding-left: 56px;
+}

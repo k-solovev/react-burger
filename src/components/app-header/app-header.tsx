@@ -14,7 +14,7 @@ const AppHeader = () => {
           <span className='text text_type_main-default text_color_inactive ml-2'>Конструктор</span>
         </NavLink>
 
-        <NavLink to='profile/orders' className={({ isActive }) => isActive ?
+        <NavLink to='/feed' className={({ isActive }) => isActive ?
           `${styles.btn} ${styles.btn__text_active} pt-4 pr-5 pb-4 pl-5`
           :
           `${styles.btn} pt-4 pr-5 pb-4 pl-5`}>

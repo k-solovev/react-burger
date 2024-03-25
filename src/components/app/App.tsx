@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import AppHeader from '../app-header/app-header'
@@ -7,6 +6,7 @@ import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import ProtectedRouteElement from '../protected-route-element/protected-route-element'
+import OrderDetailInfo from '../order-details-info/order-detail-info'
 
 import { getIngredients } from '../../services/actions/ingredients'
 import { getUser } from '../../services/actions/user'
@@ -20,16 +20,20 @@ import {
   ResetPasswordPage,
   ProfilePage,
   ProfileOrdersPage,
+  FeedPage,
   NotFound404,
+  OrderDetailPage,
 } from '../../pages'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 const App = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const orderNumber = useSelector((store: any) => store.orderDetails.orderNumber)
-  const { isLoading, isError } = useSelector((store: any) => store.ingredients)
-  const data = useSelector((store: any) => store.ingredients.ingredients)
+  const dispatch = useAppDispatch()
+  const { isLoading, isError } = useAppSelector(store => store.ingredients)
+  const user = useAppSelector(state => state.user.user)
+  const data = useAppSelector(store => store.ingredients.ingredients)
 
   const background = location.state && location.state.background
 
@@ -38,8 +42,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    dispatch(getIngredients() as any)
-    dispatch(getUser() as any)
+    dispatch(getIngredients())
+    dispatch(getUser())
   }, [dispatch])
 
   return (
@@ -60,8 +64,11 @@ const App = () => {
             <Route path='/reset-password' element={<ProtectedRouteElement element={<ResetPasswordPage />} anonymous={true} />} />
             <Route path='/login' element={<ProtectedRouteElement element={<LoginPage />} anonymous={true} />} />
             <Route path='/register' element={<ProtectedRouteElement element={<RegistrationPage />} anonymous={true} />} />
-            <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} />
+            {user && <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage user={user} />} />} />}
             <Route path='/profile/orders' element={<ProtectedRouteElement element={<ProfileOrdersPage />} />} />
+            <Route path='/profile/orders/:orderId' element={<OrderDetailPage />} />
+            <Route path='/feed/' element={<FeedPage />} />
+            <Route path='/feed/:orderNumber' element={<OrderDetailPage />} />
             <Route path='*' element={<NotFound404 />} />
           </Routes>
 
@@ -80,6 +87,14 @@ const App = () => {
                 element={
                   <Modal onClose={handleModalClose}>
                     <OrderDetails />
+                  </Modal>
+                }>
+              </Route>
+              <Route
+                path='/feed/:orderNumber'
+                element={
+                  <Modal onClose={handleModalClose}>
+                    <OrderDetailInfo />
                   </Modal>
                 }>
               </Route>

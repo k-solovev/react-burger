@@ -1,0 +1,42 @@
+.order_detail__status {
+  font-size: 16px;
+  line-height: 24px;
+  color: #00CCCC;
+}
+
+.order_detail__number {
+  text-align: center;
+}
+
+.order_detail__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order_detail__ingredient,
+.order_detail__ingredient_price,
+.order_detail__price {
+  display: flex;
+  align-items: center;
+}
+
+.order_detail__ingredient_price {
+  margin-left: auto;
+}
+
+.order_detail__ingredient_title {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.order_detail__ingredient_img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #801AB2;
+  background-color: black;
+}

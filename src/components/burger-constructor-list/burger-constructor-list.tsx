@@ -1,17 +1,18 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './burger-constructor-list.module.css'
-import { useDispatch, useSelector } from 'react-redux';
 import { DELETE_INGREDIENT } from '../../services/actions/constructor'
 import BurgerConstructorItem from '../burger-constructor-item/burger-constructor-item'
 import { IIngredient } from '../../utils/prop-types'
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 interface IConstructorElementType extends IIngredient {
   id: string
 }
 
 const BurgerConstructorList = () => {
-  const dispatch = useDispatch()
-  const ingredients = useSelector((store: any) => store.burgerConstructor.ingredients)
+  const dispatch = useAppDispatch()
+  const ingredients: any = useAppSelector(store => store.burgerConstructor.ingredients)
 
   const removeIngredientHandler = (index: number) => {
     dispatch({ type: DELETE_INGREDIENT, payload: index })

@@ -2,17 +2,17 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link } from 'react-router-dom'
 import styles from './registration.module.css'
 import { userRegister } from '../../services/actions/user'
-import { useDispatch } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
-import { SyntheticEvent } from 'react'
+import { SyntheticEvent, ChangeEvent } from 'react'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 export const RegistrationPage = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { formFields, handleChange } = useForm({ name: '', email: '', password: '' })
 
   const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-    dispatch<any>(userRegister(
+    dispatch(userRegister(
       formFields.name,
       formFields.email,
       formFields.password,
@@ -31,7 +31,7 @@ export const RegistrationPage = () => {
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         value={formFields.name}
-        onChange={(e) => handleChange(e)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
       <Input
         type={'email'}
@@ -42,7 +42,7 @@ export const RegistrationPage = () => {
         size={'default'}
         extraClass={`mb-6 ${styles.form_input}`}
         value={formFields.email}
-        onChange={(e) => handleChange(e)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
       <Input
         type={'password'}
@@ -54,7 +54,7 @@ export const RegistrationPage = () => {
         extraClass={`mb-6 ${styles.form_input}`}
         icon={'ShowIcon'}
         value={formFields.password}
-        onChange={(e) => handleChange(e)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
       <Button htmlType="submit" type="primary" size="large" extraClass='mb-10'>
         Зарегистрироваться
