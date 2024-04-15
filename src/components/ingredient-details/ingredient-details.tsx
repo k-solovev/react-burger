@@ -13,7 +13,7 @@ const IngredientDetails = () => {
       {activeIngredient && (
         <div className={styles.ingredient_details}>
           <img src={activeIngredient.image_large} alt='' />
-          <p className='text text_type_main-medium mb-8'>{activeIngredient.name}</p>
+          <p className='text text_type_main-medium mb-8' data-testid="modal-ingredient-name">{activeIngredient.name}</p>
           <ul className={styles.ingredient_details__props}>
             <li className='pr-5'>
               <p className={`${styles.ingredient_details__props_text} text text_type_main-default text_color_inactive`}>Калории,ккал</p>

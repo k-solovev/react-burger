@@ -52,7 +52,7 @@ const BurgerConstructor = () => {
 
   return (
     <section className={`${styles.burger_constructor} mt-25`}>
-      <div className='mb-10' ref={dropTarget}>
+      <div className='mb-10' ref={dropTarget} data-testid="drop-target">
         <div className='ml-8 mb-4'>
           {!bun ? (
             <BurgerConstructorPlug text='Выберите булочку' position='top' />
@@ -103,6 +103,7 @@ const BurgerConstructor = () => {
           <CurrencyIcon type="primary" />
         </span>
         <Button
+          data-testid="create-order-btn"
           htmlType="button"
           type="primary"
           size="large"
