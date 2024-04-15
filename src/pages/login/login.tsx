@@ -35,6 +35,7 @@ export const LoginPage = () => {
     <form className={styles.form} onSubmit={onSubmitHandler}>
       <h1 className="text text_type_main-medium mb-6">Вход</h1>
       <Input
+        data-testid="email"
         type={'email'}
         placeholder={'E-mail'}
         name={'email'}
@@ -46,6 +47,7 @@ export const LoginPage = () => {
         onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
       <Input
+        data-testid="password"
         type={'password'}
         placeholder={'Пароль'}
         name={'password'}
