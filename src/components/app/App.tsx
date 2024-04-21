@@ -65,6 +65,7 @@ const App = () => {
             <Route path='/login' element={<ProtectedRouteElement element={<LoginPage />} anonymous={true} />} />
             <Route path='/register' element={<ProtectedRouteElement element={<RegistrationPage />} anonymous={true} />} />
             {user && <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage user={user} />} />} />}
+            {!user && <Route path='/profile' element={<ProtectedRouteElement element={<LoginPage />} anonymous={true} />} />}
             <Route path='/profile/orders' element={<ProtectedRouteElement element={<ProfileOrdersPage />} />} />
             <Route path='/profile/orders/:orderId' element={<OrderDetailPage />} />
             <Route path='/feed/' element={<FeedPage />} />
